@@ -1,8 +1,8 @@
 module Update exposing (update)
 
-import ApiWrapper.Projects exposing (getProjects, getProjectsGql)
+import ApiWrapper.Projects exposing (getProjectsGql)
 import Http
-import Model exposing (Model, Msg(..), Page(..))
+import Model exposing (Model, Msg(..), Page(..), PinnedRepository)
 import RemoteData exposing (RemoteData(..))
 
 
@@ -33,31 +33,34 @@ update msg model =
             in
             ( { loadingModel | page = page }, cmd )
 
-        FetchProjects res ->
-            case res of
-                Ok projects ->
-                    ( { model | projects = projects, loading = False }, Cmd.none )
-
-                Err e ->
-                    ( { model | error = Just <| handleHttpError e, loading = False }, Cmd.none )
-
         FetchProjectsGql res ->
             case res of
                 NotAsked ->
-                    (model, Cmd.none)
-
+                    ( model, Cmd.none )
 
                 Loading ->
-                    ( { model | error = Nothing, loading = True}, Cmd.none)
-
+                    ( { model | error = Nothing, loading = True }, Cmd.none )
 
                 Failure e ->
-                    ({model | error = Just "no user", loading = False}, Cmd.none)
+                    ( { model | error = Just "no user", loading = False }, Cmd.none )
+
+                Success maybeFilledResponse ->
+                    handleSuccess model maybeFilledResponse
 
 
-                Success a ->
-                    ({model | error = Nothing, loading = False}, Cmd.none)
+handleSuccess : Model -> Maybe (Maybe (List (Maybe PinnedRepository))) -> ( Model, Cmd Msg )
+handleSuccess model maybeFilledResponse =
+    case maybeFilledResponse of
+        Nothing ->
+            ( { model | error = Just "Couldn't find user `milogert`.", loading = False }, Cmd.none )
 
+        Just mRepos ->
+            let
+                repos =
+                    mRepos
+                        |> Maybe.withDefault []
+            in
+            ( { model | projects = Maybe.withDefault [] mRepos, error = Nothing, loading = False }, Cmd.none )
 
 
 handleHttpError : Http.Error -> String

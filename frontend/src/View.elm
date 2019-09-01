@@ -1,12 +1,19 @@
 module View exposing (view)
 
 import Bulma.CDN exposing (..)
-import Bulma.Components exposing (navbar, navbarEnd, navbarItemLink, navbarModifiers, navbarStart)
+import Bulma.Components exposing (navbar, navbarEnd, navbarItem, navbarItemLink, navbarModifiers, navbarStart)
 import Bulma.Elements exposing (..)
 import Bulma.Layout exposing (..)
 import Bulma.Modifiers exposing (..)
-import Html exposing (Html, h1, img, main_, p, text)
-import Html.Attributes exposing (src, style)
+import FontAwesome.Attributes as Icon
+import FontAwesome.Brands as Icon
+import FontAwesome.Icon as Icon exposing (Icon)
+import FontAwesome.Layering as Icon
+import FontAwesome.Solid as Icon
+import FontAwesome.Styles as Icon
+import FontAwesome.Transforms as Icon
+import Html exposing (Html, a, h1, img, main_, p, text)
+import Html.Attributes exposing (class, href, src, style)
 import Html.Events exposing (onClick)
 import Model exposing (Model, Msg(..), Page(..))
 import Pages.Home
@@ -17,8 +24,10 @@ view : Model -> Html Msg
 view model =
     main_ [ style "padding-x" "2rem" ]
         [ stylesheet
-        , exampleHero
-        , sideNav model
+        , Icon.css
+        , renderHero model
+
+        --        , renderNav model
         , loader model.loading
         , error model.error
         , body model
@@ -26,8 +35,23 @@ view model =
         ]
 
 
-sideNav : Model -> Html Msg
-sideNav model =
+renderHero : Model -> Hero Msg
+renderHero model =
+    hero { heroModifiers | size = Small, color = Warning, bold = True }
+        []
+        [ heroHead []
+            [ renderNav model ]
+        , heroBody []
+            [ container []
+                [ title H1 [] [ text "Milo Gertjejansen" ]
+                , subtitle H2 [] [ text "programming, board games, etc" ]
+                ]
+            ]
+        ]
+
+
+renderNav : Model -> Html Msg
+renderNav model =
     navbar navbarModifiers
         []
         [ navbarStart []
@@ -35,8 +59,29 @@ sideNav model =
             , navbarItemLink (model.page == Projects) [ onClick <| Nav Projects ] [ text "Projects" ]
             ]
         , navbarEnd []
-            [ navbarItemLink False [] [ text "githubicon" ]
-            , navbarItemLink False [] [ text "linkedinicon" ]
+            [ buttons Right
+                []
+                [ navbarItem False
+                    []
+                    [ a
+                        [ class "button is-outline"
+                        , href "https://github.com/milogert"
+                        ]
+                        [ Icon.github |> Icon.viewStyled [ style "margin-right" ".5em"]
+                        , text " My Github"
+                        ]
+                    ]
+                , navbarItem False
+                    []
+                    [ a
+                        [ class "button is-outline"
+                        , href "https://linkedin.com/in/milogert"
+                        ]
+                        [ Icon.linkedin |> Icon.viewStyled [ style "margin-right" ".5em"]
+                        , text "My LinkedIn"
+                        ]
+                    ]
+                ]
             ]
         ]
 
@@ -90,20 +135,9 @@ body model =
                 Projects ->
                     Pages.Projects.view model
     in
-    container [] page
-
-
-exampleHero : Html msg
-exampleHero =
-    hero { heroModifiers | size = Small, color = Dark }
+    section NotSpaced
         []
-        [ heroBody []
-            [ container []
-                [ title H1 [] [ text "Milo Gertjejansen" ]
-
-                --                , title H2 [] [ text "Hero Subtitle" ]
-                ]
-            ]
+        [ container [] page
         ]
 
 
