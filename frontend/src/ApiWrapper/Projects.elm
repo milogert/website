@@ -1,57 +1,90 @@
 module ApiWrapper.Projects exposing (..)
 
-import Decoders exposing (decodeProjects)
+import GitHub.Interface
+import GitHub.Interface.RepositoryOwner as RepositoryOwner
+import GitHub.Object
+import GitHub.Object.Language as Language
+import GitHub.Object.LanguageConnection as LanguageConnection
+import GitHub.Object.License as License
+import GitHub.Object.Repository as Repository
+import GitHub.Object.RepositoryConnection as RepositoryConnection
+import GitHub.Object.RepositoryTopic as RepositoryTopic
+import GitHub.Object.RepositoryTopicConnection as RepositoryTopicConnection
+import GitHub.Object.Topic as Topic
+import GitHub.Query as Query
 import Graphql.Http
 import Graphql.Operation exposing (RootQuery)
-import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, withDefault, with)
-import GitHub.Interface
-import GitHub.Interface.ProfileOwner as ProfileOwner
-import GitHub.Query as Query
-import GitHub.Object
-import GitHub.Object.User as User
-import GitHub.Object.Repository as Repository
-import GitHub.Object.PinnableItemConnection as PinnableItemConnection
-import Http
-import Model exposing (Msg(..), FoundUser)
+import Graphql.OptionalArgument exposing (OptionalArgument(..))
+import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, with)
+import Model exposing (Msg(..), MyLanguage, MyLicense, MyRepoTopic, MyTopic, PinnedRepository)
 import RemoteData exposing (RemoteData)
 
 
-getProjects : Cmd Msg
-getProjects =
-    Http.request
-        { method = "GET"
-        , headers = [ Http.header "Accept" "application/vnd.github.mercy-preview+json" ]
-        , url = "https://api.github.com/users/milogert/repos"
-        , body = Http.emptyBody
-        , expect = Http.expectJson FetchProjects decodeProjects
-        , timeout = Nothing
-        , tracker = Nothing
-        }
-
-
-gqlGetProjects : SelectionSet (Maybe FoundUser) RootQuery
+gqlGetProjects : SelectionSet (Maybe (Maybe (List (Maybe PinnedRepository)))) RootQuery
 gqlGetProjects =
-    Query.user  { login = "milogert" } userSelection
+    Query.repositoryOwner { login = "milogert" } repoOwnerSelection
 
 
-userSelection : SelectionSet FoundUser GitHub.Object.User
-userSelection =
-    SelectionSet.map FoundUser
-        User.name
---        User.pinnedItems
+repoOwnerSelection : SelectionSet (Maybe (List (Maybe PinnedRepository))) GitHub.Interface.RepositoryOwner
+repoOwnerSelection =
+    RepositoryOwner.pinnedRepositories (\r -> { r | first = Present 6 }) pinnedRepos
+
+
+pinnedRepos : SelectionSet (Maybe (List (Maybe PinnedRepository))) GitHub.Object.RepositoryConnection
+pinnedRepos =
+    RepositoryConnection.nodes pinnedRepo
+
+
+pinnedRepo : SelectionSet PinnedRepository GitHub.Object.Repository
+pinnedRepo =
+    SelectionSet.succeed PinnedRepository
+        |> with Repository.name
+        |> with Repository.description
+        |> with Repository.url
+        |> with Repository.homepageUrl
+        |> with (Repository.languages (\l -> { l | first = Present 15 }) languages)
+        |> with (Repository.licenseInfo license)
+        |> with (Repository.repositoryTopics (\t -> { t | first = Present 6 }) repoTopics)
+
+
+languages : SelectionSet (Maybe (List (Maybe MyLanguage))) GitHub.Object.LanguageConnection
+languages =
+    LanguageConnection.nodes language
+
+
+language : SelectionSet MyLanguage GitHub.Object.Language
+language =
+    SelectionSet.succeed MyLanguage
+        |> with Language.name
+        |> with Language.color
+
+
+license : SelectionSet MyLicense GitHub.Object.License
+license =
+    SelectionSet.succeed MyLicense
+        |> with License.name
+
+
+repoTopics : SelectionSet (Maybe (List (Maybe MyRepoTopic))) GitHub.Object.RepositoryTopicConnection
+repoTopics =
+    RepositoryTopicConnection.nodes repoTopic
+
+
+repoTopic : SelectionSet MyRepoTopic GitHub.Object.RepositoryTopic
+repoTopic =
+    SelectionSet.succeed MyRepoTopic
+        |> with (RepositoryTopic.topic topic)
+
+
+topic : SelectionSet MyTopic GitHub.Object.Topic
+topic =
+    SelectionSet.succeed MyTopic
+        |> with Topic.name
 
 
 getProjectsGql : Cmd Msg
 getProjectsGql =
     gqlGetProjects
         |> Graphql.Http.queryRequest "https://api.github.com/graphql"
-        |>(\query -> { headers = []
-              , baseUrl = "https://api.github.com/graphql"
-              , expect = Document.decoder query
-              , timeout = Nothing
-              , withCredentials = False
-              , details = Query Nothing query
-              , queryParams = []
-              }
-              )
+        |> Graphql.Http.withHeader "Authorization" "Bearer REDACTED"
         |> Graphql.Http.send (RemoteData.fromResult >> FetchProjectsGql)

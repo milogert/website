@@ -1,27 +1,15 @@
-module Model exposing (Model, Msg(..), Page(..), Project, init, FoundUser)
+module Model exposing (Model, Msg(..),MyLanguage, MyLicense, MyRepoTopic, MyTopic, Page(..), PinnedRepository, init)
 
+import GitHub.ScalarCodecs exposing (Uri)
 import Graphql.Http
-import Http exposing (Response)
 import RemoteData exposing (RemoteData)
 
 
 type alias Model =
     { page : Page
-    , projects : List Project
+    , projects : List (Maybe PinnedRepository)
     , error : Maybe String
     , loading : Bool
-    }
-
-
-type alias Project =
-    { name : String
-    , description : Maybe String
-    , language : Maybe String
-    , html_url : String
-    , homepage : Maybe String
-    , license : Maybe String
-    , topics : List String
-    , fork : Bool
     }
 
 
@@ -41,12 +29,34 @@ type Page
     | Projects
 
 
-type alias FoundUser =
-    { name : Maybe String
---    , pinnedItems : PinnableItemConnection
+type alias PinnedRepository =
+    { name : String
+    , description : Maybe String
+    , url : Uri
+    , homepageUrl : Maybe Uri
+    , languages : Maybe (Maybe (List (Maybe MyLanguage)))
+    , licenseInfo : Maybe MyLicense
+    , topics : Maybe (List (Maybe MyRepoTopic))
     }
+
+
+type alias MyLanguage =
+    { name : String
+    , color: Maybe String
+    }
+
+type alias MyLicense =
+    { name : String }
+
+
+type alias MyRepoTopic =
+    { topic : MyTopic }
+
+
+type alias MyTopic =
+    { name : String }
+
 
 type Msg
     = Nav Page
-    | FetchProjects (Result Http.Error (List Project))
-    | FetchProjectsGql (RemoteData (Graphql.Http.Error (Maybe FoundUser)) (Maybe FoundUser))
+    | FetchProjectsGql (RemoteData (Graphql.Http.Error (Maybe (Maybe (List (Maybe PinnedRepository))))) (Maybe (Maybe (List (Maybe PinnedRepository)))))
