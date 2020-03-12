@@ -1,6 +1,5 @@
 module Pages.Projects.ProjectRow exposing (..)
 
-import Bulma.Columns as BulCol exposing (columnModifiers)
 import Bulma.Components exposing (..)
 import Bulma.Elements exposing (..)
 import Bulma.Layout exposing (..)
@@ -12,105 +11,131 @@ import FontAwesome.Layering as Icon
 import FontAwesome.Solid as Icon
 import FontAwesome.Styles as Icon
 import FontAwesome.Transforms as Icon
-import GitHub.Scalar exposing (Uri(..))
-import Html exposing (Html, a, div, small, text, p)
+import Html exposing (Html, a, div, p, small, span, text)
 import Html.Attributes exposing (class, href, style)
-import Model exposing (Msg, MyLanguage, MyRepoTopic, PinnedRepository)
+import Model exposing (Language, Model, Msg, PinnedRepo, Topic)
+import Pages.Projects.ImageGallery as ImageGallery
 
 
-view : Maybe PinnedRepository -> Tile Msg
-view mProject =
-    case mProject of
-        Nothing ->
-            text "none project"
-
-        Just project ->
-            let
-                repoLink =
-                    case project.url of
-                        Uri url ->
-                            a [ href url ] [ icon Medium [] [ Icon.github |> Icon.present |> Icon.view ] ]
-
-                homeLink =
-                    case project.homepageUrl of
-                        Nothing ->
-                            icon Medium [] [ Icon.unlink |> Icon.present |> Icon.view ]
-
-                        Just (Uri homepageUrl) ->
-                            a [ href homepageUrl ] [ icon Medium [] [ Icon.link |> Icon.present |> Icon.view ] ]
-            in
-            tile Auto
-                [ class "is-child box" ]
-                [ level []
-                    [ levelLeft []
-                        [ title H5
-                            []
-                            [ text project.name
-                            , repoLink
-                            , homeLink
-                            ]
-                        ]
-                    , levelRight []
-                        [ subtitle H5
-                            []
-                            [ renderLanguages project.languages ]
-                        ]
-                    ]
-                , content Standard
+view : Model -> PinnedRepo -> Tile Msg
+view model project =
+    let
+        repoLink =
+            a [ href project.url ]
+                [ icon Medium
                     []
-                    [ tags [] (project.topics |> renderTopics)
-                    , p []
-                        [ text <| Maybe.withDefault "No description provided." project.description ]
-                    ]
+                    [ Icon.github |> Icon.present |> Icon.view ]
                 ]
 
-
-renderTopics : Maybe (List (Maybe MyRepoTopic)) -> List (Html Msg)
-renderTopics mRepoTopics =
-    case mRepoTopics of
-        Just repoTopics ->
-            repoTopics
-                |> List.map
-                    (\mRepoTopic ->
-                        case mRepoTopic of
-                            Just repoTopic ->
-                                tag tagModifiers [] [ text repoTopic.topic.name ]
-
-                            Nothing ->
-                                text ""
-                    )
-
-        Nothing ->
-            []
-
-
-renderLanguages : Maybe (Maybe (List (Maybe MyLanguage))) -> Html Msg
-renderLanguages mmLanguages =
-    case mmLanguages of
-        Just mLanguages ->
-            case mLanguages of
-                Just languages ->
-                    languages -- TODO sorting
-                        |> List.map renderLanguage
-                        |> (++) [ tag tagModifiers [] [ text "languages" ] ]
-                        |> multitag []
-
+        homeLink =
+            case project.homepageUrl of
                 Nothing ->
-                    text ""
+                    icon Medium [] [ Icon.unlink |> Icon.present |> Icon.view ]
+
+                Just homepageUrl ->
+                    a [ href homepageUrl ]
+                        [ icon Medium
+                            []
+                            [ Icon.link |> Icon.present |> Icon.view ]
+                        ]
+
+        licenseLink =
+            case project.license of
+                Nothing ->
+                    span [] [ text "No license" ]
+
+                Just license ->
+                    case license.url of
+                        Nothing ->
+                            span [] [ text license.name ]
+
+                        Just url ->
+                            a [ href url ] [ text license.name ]
+
+        gallery =
+            case project.gallery of
+                Nothing ->
+                    span [] []
+
+                Just _ ->
+                    div
+                        [ class "image-gallery-holder"
+                        , style "display" "flex"
+                        , style "justify-content" "center"
+                        ]
+                        [ ImageGallery.render project ]
+    in
+    tile Auto
+        [ class "is-child box" ]
+        [ level []
+            [ levelLeft []
+                [ title H5
+                    []
+                    [ text project.name
+                    , repoLink
+                    , homeLink
+                    ]
+                ]
+            , levelRight []
+                [ subtitle H5
+                    []
+                    [ renderLanguages project.languages ]
+                ]
+            ]
+        , content Standard
+            []
+            [ p []
+                [ text <| Maybe.withDefault "No description provided." project.description ]
+            , gallery
+            ]
+        , level []
+            [ levelLeft [] [ tags [] (project.topics |> renderTopics) ]
+            , levelRight [] [ licenseLink ]
+            ]
+        ]
+
+
+renderTopics : Maybe (List Topic) -> List (Html Msg)
+renderTopics mTopics =
+    case mTopics of
+        Just topics ->
+            case topics of
+                [] ->
+                    [ text "No topics are set" ]
+
+                _ ->
+                    topics
+                        |> List.map
+                            (\topic ->
+                                tag tagModifiers [] [ text topic.name ]
+                            )
+
+        Nothing ->
+            [ text "No topics were found" ]
+
+
+renderLanguages : Maybe (List Language) -> Html Msg
+renderLanguages mLanguages =
+    case mLanguages of
+        Just languages ->
+            languages
+                |> List.map renderLanguage
+                |> (++) [ tag tagModifiers [] [ text "languages" ] ]
+                |> multitag []
 
         Nothing ->
             text ""
 
 
-renderLanguage : Maybe MyLanguage -> Html Msg
-renderLanguage mLanguage =
-    case mLanguage of
-        Just language ->
-            let
-                color =
-                    Maybe.withDefault "#363636" language.color
-            in
-            tag tagModifiers [ style "background-color" color ] [ text language.name ]
+renderLanguage : Language -> Html Msg
+renderLanguage language =
+    tag tagModifiers
+        [ style "background-color" language.color ]
+        [ span
+            [ class "language-text"
 
-        Nothing ->
-            text ""
+            --, style "filter" "invert(1) grayscale(1) contrast(9)"
+            --, style "color" language.color
+            ]
+            [ text language.name ]
+        ]

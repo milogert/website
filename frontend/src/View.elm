@@ -12,12 +12,14 @@ import FontAwesome.Layering as Icon
 import FontAwesome.Solid as Icon
 import FontAwesome.Styles as Icon
 import FontAwesome.Transforms as Icon
-import Html exposing (Html, a, h1, img, main_, p, text)
+import Html exposing (Html, a, div, h1, img, main_, p, text)
 import Html.Attributes exposing (class, href, src, style)
 import Html.Events exposing (onClick)
 import Model exposing (Model, Msg(..), Page(..))
+import Pages.Blog
 import Pages.Home
 import Pages.Projects
+import View.Utils exposing (styling)
 
 
 view : Model -> Html Msg
@@ -25,12 +27,11 @@ view model =
     main_ [ style "padding-x" "2rem" ]
         [ stylesheet
         , Icon.css
+        , styling
         , renderHero model
-
-        --        , renderNav model
-        , loader model.loading
         , error model.error
-        , body model
+        , div [ class "" ]
+            [ body model ]
         , footer_
         ]
 
@@ -57,6 +58,7 @@ renderNav model =
         [ navbarStart []
             [ navbarItemLink (model.page == Home) [ onClick <| Nav Home ] [ text "Home" ]
             , navbarItemLink (model.page == Projects) [ onClick <| Nav Projects ] [ text "Projects" ]
+            , navbarItemLink (model.page == Blog) [ onClick <| Nav Blog ] [ text "Blog" ]
             ]
         , navbarEnd []
             [ buttons Right
@@ -67,7 +69,7 @@ renderNav model =
                         [ class "button is-outline"
                         , href "https://github.com/milogert"
                         ]
-                        [ Icon.github |> Icon.viewStyled [ style "margin-right" ".5em"]
+                        [ Icon.github |> Icon.viewStyled [ style "margin-right" ".5em" ]
                         , text " My Github"
                         ]
                     ]
@@ -77,27 +79,13 @@ renderNav model =
                         [ class "button is-outline"
                         , href "https://linkedin.com/in/milogert"
                         ]
-                        [ Icon.linkedin |> Icon.viewStyled [ style "margin-right" ".5em"]
+                        [ Icon.linkedin |> Icon.viewStyled [ style "margin-right" ".5em" ]
                         , text "My LinkedIn"
                         ]
                     ]
                 ]
             ]
         ]
-
-
-loader : Bool -> Html Msg
-loader isLoading =
-    let
-        disp =
-            case isLoading of
-                True ->
-                    Block
-
-                False ->
-                    Hidden
-    in
-    section NotSpaced [ display disp ] [ container [] [ text "LOADING" ] ]
 
 
 error : Maybe String -> Html Msg
@@ -134,6 +122,9 @@ body model =
 
                 Projects ->
                     Pages.Projects.view model
+
+                Blog ->
+                    Pages.Blog.view model
     in
     section NotSpaced
         []

@@ -7,6 +7,7 @@ extern crate futures;
 extern crate hyper;
 extern crate tokio_core;
 
+mod cors;
 mod gql;
 
 mod bad_gql_proxy {
@@ -23,11 +24,8 @@ fn index() -> &'static str {
 
 fn main() {
     rocket::ignite()
+        .attach(cors::CORS())
         .mount("/", routes![index])
-        .mount("/gql", routes![gql::routes::send])
+        .mount("/gql", routes![gql::routes::pinned_repos])
         .launch();
-}
-
-fn main2() {
-    println!("Hello, world!");
 }

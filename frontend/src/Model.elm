@@ -1,13 +1,22 @@
-module Model exposing (Model, Msg(..),MyLanguage, MyLicense, MyRepoTopic, MyTopic, Page(..), PinnedRepository, init)
+module Model exposing
+    ( Language
+    , License
+    , Model
+    , Msg(..)
+    , Page(..)
+    , PinnedRepo
+    , Topic
+    , init
+    )
 
-import GitHub.ScalarCodecs exposing (Uri)
-import Graphql.Http
-import RemoteData exposing (RemoteData)
+import Gallery
+import Http
+import Markdown.Render exposing (MarkdownMsg(..))
 
 
 type alias Model =
     { page : Page
-    , projects : List (Maybe PinnedRepository)
+    , projects : List PinnedRepo
     , error : Maybe String
     , loading : Bool
     }
@@ -27,36 +36,44 @@ init =
 type Page
     = Home
     | Projects
+    | Blog
 
 
-type alias PinnedRepository =
+type alias PinnedRepo =
     { name : String
     , description : Maybe String
-    , url : Uri
-    , homepageUrl : Maybe Uri
-    , languages : Maybe (Maybe (List (Maybe MyLanguage)))
-    , licenseInfo : Maybe MyLicense
-    , topics : Maybe (List (Maybe MyRepoTopic))
+    , url : String
+    , homepageUrl : Maybe String
+    , languages : Maybe (List Language)
+    , license : Maybe License
+    , topics : Maybe (List Topic)
+    , gallery : Maybe Gallery.State
+    , screenshots : List String
     }
 
 
-type alias MyLanguage =
+type alias Language =
     { name : String
-    , color: Maybe String
+    , color : String
     }
 
-type alias MyLicense =
-    { name : String }
+
+type alias License =
+    { name : String
+    , nickname : Maybe String
+    , url : Maybe String
+    }
 
 
-type alias MyRepoTopic =
-    { topic : MyTopic }
-
-
-type alias MyTopic =
-    { name : String }
+type alias Topic =
+    { name : String
+    , url : String
+    }
 
 
 type Msg
     = Nav Page
-    | FetchProjectsGql (RemoteData (Graphql.Http.Error (Maybe (Maybe (List (Maybe PinnedRepository))))) (Maybe (Maybe (List (Maybe PinnedRepository)))))
+    | GotRepos (Result Http.Error (List PinnedRepo))
+    | GotScreenshots PinnedRepo (Result Http.Error (List String))
+    | ImageGalleryMsg PinnedRepo Gallery.Msg
+    | MarkdownMsg Markdown.Render.MarkdownMsg
