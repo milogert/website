@@ -1,0 +1,31 @@
+.row {
+}
+
+.header {
+  @apply flex justify-between;
+}
+
+.name {
+  @apply text-xl;
+}
+
+.footer {
+  @apply flex justify-between;
+}
+
+.languages {
+}
+
+.language {
+  @apply rounded bg-gray-500 px-2 py-1 mx-1 text-sm;
+}
+
+.topics {
+}
+
+.topic {
+  @apply rounded bg-gray-500 px-2 py-1 mx-1 text-sm;
+}
+
+.carousel {
+}

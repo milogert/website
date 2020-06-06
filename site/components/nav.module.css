@@ -1,0 +1,30 @@
+.nav {
+  @apply flex items-center justify-start flex-wrap bg-yellow-500 h-16 px-4;
+}
+
+.me {
+  @apply h-12 w-12 mx-4;
+}
+
+.me img {
+  @apply object-cover w-full rounded-full;
+}
+
+.linksHolder {
+  @apply flex justify-between items-center flex-grow h-full;
+}
+
+.links {
+  @apply flex items-center h-full;
+}
+
+.link {
+  @apply flex items-center h-full px-4;
+}
+
+.link:hover {
+   @apply bg-yellow-400;
+ }
+
+.link.active {
+}

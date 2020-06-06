@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "@dillonkearns/elm-graphql": "^3.6.2",
-    "elm": "^0.19.0-no-deps",
-    "elm-format": "^0.8.2",
-    "elm-github-install": "^1.6.1",
-    "elm-test": "^0.19.0-rev6"
-  }
-}
