@@ -1,10 +1,10 @@
 import Head from 'next/head'
-import Link from 'next/Link'
-import Layout from '../components/Layout'
+import Link from 'next/link'
+import Layout from '../components/layout'
 import { getSortedPostsData } from '../lib/posts'
 
 const Home = ({ allPostsData }) => {
-  return <Layout>
+  return <>
     <Head>
       <title>Create Next App</title>
       <link rel="icon" href="/favicon.ico" />
@@ -23,7 +23,7 @@ const Home = ({ allPostsData }) => {
         ))}
       </ul>
     </section>
-  </Layout>
+  </>
 }
 
 export async function getStaticProps() {

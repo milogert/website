@@ -1,5 +1,10 @@
 .nav {
-  @apply flex items-center justify-start flex-wrap bg-yellow-500 h-16 px-4;
+  @apply bg-yellow-500 relative z-10;
+}
+
+.navInner {
+  @apply h-full mx-auto flex items-center justify-start flex-wrap;
+  max-width: 50rem;
 }
 
 .me {
@@ -11,7 +16,7 @@
 }
 
 .linksHolder {
-  @apply flex justify-between items-center flex-grow h-full;
+  @apply justify-between items-center flex-grow h-full;
 }
 
 .links {
@@ -19,7 +24,11 @@
 }
 
 .link {
-  @apply flex items-center h-full px-4;
+  @apply flex items-center h-full px-4 h-16;
+}
+
+.link svg {
+  @apply h-4 w-4;
 }
 
 .link:hover {
@@ -27,4 +36,36 @@
  }
 
 .link.active {
+}
+
+.iconButton {
+  @apply mr-1;
+}
+
+.menu {
+  @apply flex-grow h-full justify-end items-center;
+}
+
+.menuButton {
+  @apply h-16 px-4;
+}
+
+.menuButton svg {
+  @apply h-8 w-8;
+}
+
+.dropdown {
+  @apply flex-col bg-yellow-600 -mx-4 -mb-2;
+}
+
+.dropdown div {
+  @apply h-10 px-4;
+}
+
+.dropdown div:hover {
+  @apply bg-yellow-700;
+}
+
+.dropdown .link {
+  @apply h-10;
 }

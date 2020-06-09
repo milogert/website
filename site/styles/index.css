@@ -9,6 +9,21 @@
   @apply py-20;
 }
 
+.navLink {
+
+}
+
+.navLink:hover {
+}
+
+.webLink {
+  @apply underline text-yellow-700;
+}
+
+.webLink:hover {
+  @apply text-yellow-600;
+}
+
 .title {
   @apply text-5xl text-center;
   color: #333;

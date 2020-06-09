@@ -23,5 +23,7 @@ module.exports = {
   ],
   rules: {
     semi: [ 'error', 'never' ],
+    react/jsx-filename-extension: [1, { "extensions": [".js", ".jsx"] }],
+    react/display-name: 1
   },
 };

@@ -1,0 +1,27 @@
+.card {
+  @apply max-w-lg border rounded shadow-xl flex p-5 my-10 bg-white;
+}
+
+.me {
+  @apply h-24 w-24 mr-5;
+}
+
+.me img {
+  @apply object-cover w-full rounded-full;
+}
+
+.header {
+  @apply text-xl mb-2;
+}
+
+.headerSub {
+  @apply text-base text-yellow-900;
+}
+
+.contact {
+  @apply text-gray-700;
+}
+
+.contactType {
+  @apply font-bold mr-2;
+}

@@ -1,3 +1,12 @@
 .container {
   @apply text-base;
 }
+
+.copyright {
+  @apply text-center text-gray-500 mt-5 pb-5;
+}
+
+.footer {
+  @apply pt-5 border-t border-gray-200 bg-gray-200;
+  box-shadow: inset 0 30px 35px 0 rgba(0, 0, 0, 0.06);
+}

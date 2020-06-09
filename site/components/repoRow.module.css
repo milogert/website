@@ -6,14 +6,24 @@
 }
 
 .name {
-  @apply text-xl;
+  @apply text-3xl mr-4;
+}
+
+.link {
+  @apply mr-4;
 }
 
 .footer {
   @apply flex justify-between;
 }
 
+.tagText {
+  color: white;
+  mix-blend-mode: overlay;
+}
+
 .languages {
+  @apply mb-2;
 }
 
 .language {
@@ -21,6 +31,7 @@
 }
 
 .topics {
+  @apply mb-2;
 }
 
 .topic {
@@ -28,4 +39,15 @@
 }
 
 .carousel {
+  @apply my-4;
+}
+
+.screenshotHolder {
+  @apply h-full;
+}
+
+.screenshot {
+  @apply object-contain object-center;
+  width: 30rem;
+  height: 25rem;
 }
