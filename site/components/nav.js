@@ -1,14 +1,20 @@
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronCircleDown,faChevronCircleUp } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faTimes, faChevronCircleDown,faChevronCircleUp } from '@fortawesome/free-solid-svg-icons'
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 
 import {
+  arrowBump,
   dropdown,
+  dropdownWrapper,
+  hamburger,
   iconButton,
   leftNav,
   link,
+  linkActive,
+  linkHover,
   links,
   linksHolder,
   me,
@@ -17,12 +23,14 @@ import {
   nav,
   navInner,
   rightNav,
+  showingWrapper,
 } from './nav.module.css'
+import features from '../lib/features'
 
 const leftTopButtons = [
   { name: 'Me', href: '/' },
   { name: 'Projects', href: '/projects' },
-  { name: 'Resume', href: '/resume' },
+  features.resume ? { name: 'Resume', href: '/resume' } : {},
 ]
 
 const rightBottomButtons = [
@@ -32,6 +40,14 @@ const rightBottomButtons = [
 
 const Nav = () => {
   const [ menuOpen, setMenuOpen ] = useState(false)
+  const router = useRouter()
+  const { pathname } = router
+  console.log(router, pathname)
+
+  const isActiveButton = href => {
+    console.log('performing comparison', href, pathname)
+    return pathname === href
+  }
 
   return <nav
     className={nav}
@@ -43,13 +59,15 @@ const Nav = () => {
 
       <div className={`${linksHolder} hidden sm:flex`}>
         <div className={`${links} ${leftNav}`}>
-          { leftTopButtons.map(({ name, href }) =>
-            <Link href={href}><a className={link}>{ name }</a></Link>
+          { leftTopButtons.filter(({ name }) => Boolean(name)).map(({ name, href }, idx) =>
+            <Link key={idx} href={href}>
+              <a className={`${link} ${linkHover} ${isActiveButton(href) ? linkActive : ''}`}>{ name }</a>
+            </Link>
           )}
         </div>
         <div className={`${links} ${rightNav}`}>
-          { rightBottomButtons.map(({ name, href, icon }) =>
-            <a className={link} href={href}>
+          { rightBottomButtons.map(({ name, href, icon }, idx) =>
+            <a key={idx} className={`${link} ${linkHover}`} href={href}>
               <FontAwesomeIcon className={iconButton} icon={icon} /> { name }
             </a>
           )}
@@ -58,22 +76,30 @@ const Nav = () => {
 
       <div className={`${menu} flex sm:hidden`}>
         <button className={menuButton} onClick={() => setMenuOpen(!menuOpen)}>
-          <FontAwesomeIcon className={iconButton} icon={menuOpen ? faChevronCircleUp : faChevronCircleDown} />
+          <FontAwesomeIcon className={hamburger} icon={menuOpen ? faTimes : faBars} />
         </button>
       </div>
     </div>
-    <div className={`${dropdown} ${menuOpen ? 'flex' : 'hidden'}`}>
-      { leftTopButtons.map(({ name, href }) =>
-        <div><Link href={href}><a className={link}>{ name }</a></Link></div>
-      )}
-      <hr />
-      { rightBottomButtons.map(({ name, href, icon }) =>
-        <div>
-          <a className={link} href={href}>
-            <FontAwesomeIcon className={iconButton} icon={icon} /> { name }
-          </a>
-        </div>
-      )}
+    <div className={`${dropdownWrapper} ${menuOpen ? showingWrapper : null}`}>
+      <div className={arrowBump} />
+
+      <div className={dropdown}>
+        { leftTopButtons.filter(({ name }) => Boolean(name)).map(({ name, href }, idx) =>
+          <div key={idx} onClick={() => setMenuOpen(false)}>
+            <Link href={href}>
+              <a className={`${link} ${isActiveButton(href) ? 'active' : ''}`}>{ name }</a>
+            </Link>
+          </div>
+        )}
+        <hr />
+        { rightBottomButtons.map(({ name, href, icon }, idx) =>
+          <div key={idx} onClick={() => setMenuOpen(false)}>
+            <a className={link} href={href}>
+              <FontAwesomeIcon className={iconButton} icon={icon} /> { name }
+            </a>
+          </div>
+        )}
+      </div>
     </div>
   </nav>
 }

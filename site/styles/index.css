@@ -24,6 +24,11 @@
   @apply text-yellow-600;
 }
 
+.content {
+  @apply my-0 mx-auto py-4 px-2;
+  max-width: 50rem;
+}
+
 .title {
   @apply text-5xl text-center;
   color: #333;

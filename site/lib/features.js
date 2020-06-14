@@ -1,0 +1,5 @@
+const features = {
+  resume: process.env.NODE_ENV === 'development',
+}
+
+export default features
