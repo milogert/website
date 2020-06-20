@@ -42,10 +42,8 @@ const Nav = () => {
   const [ menuOpen, setMenuOpen ] = useState(false)
   const router = useRouter()
   const { pathname } = router
-  console.log(router, pathname)
 
   const isActiveButton = href => {
-    console.log('performing comparison', href, pathname)
     return pathname === href
   }
 
