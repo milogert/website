@@ -33,7 +33,7 @@ export async function getStaticProps() {
   const { error, pinnedRepos = [] } = await getPinnedRepos()
   return {
     props: {
-      error,
+      error: error || null,
       pinnedRepos,
     },
   }

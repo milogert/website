@@ -14,7 +14,7 @@ const RepoRow = ({
   homepage_url,
   languages,
   license,
-  topics,
+  repositoryTopics,
   screenshots,
   wrapRow,
 }) =>
@@ -64,8 +64,8 @@ const RepoRow = ({
           )}
         </div>
         <div className={styles.topics}>
-          { topics.map(({ name }, idx) =>
-            <span key={idx} className={styles.topic}>{ name }</span>
+          { repositoryTopics.map(({ topic }, idx) =>
+            <span key={idx} className={styles.topic}>{ topic }</span>
           )}
         </div>
       </div>

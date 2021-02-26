@@ -14,8 +14,10 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.10",
     "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
     "gray-matter": "^4.0.2",
     "next": "^9.4.4",
+    "ramda": "^0.27.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-responsive-carousel": "^3.2.7"
