@@ -31,6 +31,7 @@ const leftTopButtons = [
   { name: 'Me', href: '/' },
   { name: 'Projects', href: '/projects' },
   features.resume ? { name: 'Resume', href: '/resume' } : {},
+  { name: 'Game Tools', href: '/gametools' },
 ]
 
 const rightBottomButtons = [
@@ -52,7 +53,7 @@ const Nav = () => {
   >
     <div className={navInner}>
       <div className={me}>
-        <img src="https://www.gravatar.com/avatar/a86c13468543741fef7b0c0c04b1fe61?s=200" />
+        <Link href="/"><a><img src="https://www.gravatar.com/avatar/a86c13468543741fef7b0c0c04b1fe61?s=200" /></a></Link>
       </div>
 
       <div className={`${linksHolder} hidden sm:flex`}>

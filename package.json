@@ -20,7 +20,9 @@
     "ramda": "^0.27.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-responsive-carousel": "^3.2.7"
+    "react-responsive-carousel": "^3.2.7",
+    "styled-jsx": "^3.3.0",
+    "styled-jsx-plugin-postcss": "^4.0.1"
   },
   "devDependencies": {
     "eslint": "^6.8.0",

@@ -8,7 +8,7 @@ import features from '../lib/features'
 const qa = [
   {
     question: "Why yellow?",
-    answer: "I play yellow in board games since it's the most unloved color so I always have the same color.",
+    answer: "Nobody else plays as yellow.",
   },
 ]
 
@@ -20,8 +20,8 @@ const Home = ({ allPostsData }) => {
     </Head>
 
     <Hero>
-      <div className="text-4xl">Hey!</div>
-      <div className="text-2xl">I'm <b>Milo Gertjejansen</b>, a software engineer currently living in Minnesota working at <a href="articulate.com" className="webLink">Articulate</a>. Welcome to my page.</div>
+      <div className="text-4xl">Hello</div>
+      <div className="text-2xl">I'm <b>Milo Gertjejansen</b>, a software engineer currently living in Minnesota working at <a href="articulate.com" className="webLink">Articulate</a>.</div>
     </Hero>
 
     <div className="content">
@@ -30,11 +30,11 @@ const Home = ({ allPostsData }) => {
           Here I <Link href="/projects"><a className="webLink">showcase some work I have done</a></Link> as well as host an <Link href="/resume"><a className="webLink">online adaption of my resume</a></Link>.
         </p>
         : <p className="my-4">
-          Here I <Link href="/projects"><a className="webLink">showcase some work I have done</a></Link>. More is coming soon!
+          Here I <Link href="/projects"><a className="webLink">showcase some work I have done</a></Link>.
         </p>
       }
       <p className="my-4">
-        I work almost entirely with JavaScript, specifically React and Ramda. But I am a huge fan of functional languages the can do the purest work possible. I also love experimenting with new tech. For instance, this site is written in Next.js and Rust, probably unnecessarily.
+        I work almost entirely with JavaScript, specifically React and Ramda. But I am a big fan of trying out other technologies. I also love experimenting with new tech.
       </p>
       <p className="my-4">
         Hobbies of mine include programming, board games, and painting miniatures.

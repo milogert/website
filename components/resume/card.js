@@ -8,7 +8,7 @@ import {
   me,
 } from './card.module.css'
 
-const OverviewCard = () => <div className={`${card} flex-col sm:flex-row items-center sm:items-start mx-4 sm:mx-auto`}>
+const OverviewCard = () => <div className={`${card} flex-col sm:flex-row items-center sm:items-start mx-4`}>
   <div className={me}>
     <img src="https://www.gravatar.com/avatar/a86c13468543741fef7b0c0c04b1fe61?s=200" />
   </div>
