@@ -48,7 +48,7 @@
 }
 
 .menuButton {
-  @apply h-10 w-10 rounded-full mr-4 pt-1;
+  @apply h-10 w-10 rounded-full mr-4 align-middle;
 }
 
 .hamburger {

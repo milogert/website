@@ -9,7 +9,6 @@ import {
   arrowBump,
   dropdown,
   dropdownWrapper,
-  hamburger,
   iconButton,
   leftNav,
   link,
@@ -75,7 +74,7 @@ const Nav = () => {
 
       <div className={`${menu} flex sm:hidden`}>
         <button className={menuButton} onClick={() => setMenuOpen(!menuOpen)}>
-          <FontAwesomeIcon className={hamburger} icon={menuOpen ? faTimes : faBars} />
+          <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} />
         </button>
       </div>
     </div>

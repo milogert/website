@@ -15,7 +15,7 @@ const qa = [
 const Home = ({ allPostsData }) => {
   return <>
     <Head>
-      <title>Create Next App</title>
+      <title>Home Page</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
