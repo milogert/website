@@ -21,7 +21,7 @@ const Home = ({ allPostsData }) => {
 
     <Hero>
       <div className="text-4xl">Hello</div>
-      <div className="text-2xl">I'm <b>Milo Gertjejansen</b>, a software engineer currently living in Minnesota working at <a href="articulate.com" className="webLink">Articulate</a>.</div>
+      <div className="text-2xl">I'm <b>Milo Gertjejansen</b>, a software engineer currently living in Maine working at <a href="articulate.com" className="webLink">Articulate</a>.</div>
     </Hero>
 
     <div className="content">
