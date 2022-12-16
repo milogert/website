@@ -64,9 +64,9 @@ const RepoRow = ({
             <span
               key={idx}
               style={bgColor(color)}
-              className={`rounded bg-[${color}] px-2 py-1 mx-1 text-sm`}
+              className="rounded px-2 py-1 mx-1 text-sm"
             >
-              <span className={`text-[${color}] mix-blend-overlay`}>{ name }</span>
+              <span style={{ color }} className="mix-blend-plus-lighter">{ name }</span>
             </span>
           )}
         </div>
