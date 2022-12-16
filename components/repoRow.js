@@ -1,4 +1,3 @@
-import styles from './repoRow.module.css'
 import DiagonalWrapper from './diagonalWrapper'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLink } from '@fortawesome/free-solid-svg-icons'
@@ -11,7 +10,7 @@ const RepoRow = ({
   name,
   description,
   url,
-  homepage_url,
+  homepageUrl,
   languages,
   license,
   repositoryTopics,
@@ -26,46 +25,54 @@ const RepoRow = ({
       }
     }
   >
-    <div className={styles.row}>
-      <div className={styles.header}>
+    <div className="row">
+      <div className="flex justify-between">
         <div>
-          <code className={styles.name}>{name}</code>
-          <a className={styles.link} href={url}><FontAwesomeIcon icon={faGithub} /> View the code</a>
-          { homepage_url &&
-            <a className={styles.link} href={homepage_url}><FontAwesomeIcon icon={faLink} /> See it online</a>
+          <code className="text-3xl mr-4">{name}</code>
+          <a className="mr-4" href={url}><span className="w-4 h-4 inline-block">
+            <FontAwesomeIcon icon={faGithub} /></span>
+            <span className="ml-2 hidden md:inline">View the code</span>
+          </a>
+          { homepageUrl &&
+            <a className="mr-4" href={homepageUrl}>
+              <span className="w-4 h-4 inline-block">
+                <FontAwesomeIcon icon={faLink} />
+              </span>
+              <span className="ml-2 hidden md:inline">See it online</span>
+            </a>
           }
         </div>
       </div>
 
-      <div className={styles.content}>
+      <div className="content">
         <p>{description}</p>
 
-        <div className={styles.carousel}>
+        <div className="my-4">
           <Carousel renderThumbs={() => null}>
             { screenshots.map(url =>
-              <div className={styles.screenshotHolder} key={url}>
-                <img className={styles.screenshot} src={url} />
+              <div className="h-full" key={url}>
+                <img className="object-contain object-center w-[30rem] h-96" src={url} />
               </div>
             )}
           </Carousel>
         </div>
       </div>
 
-      <div className={`${styles.footer} flex-col md:flex-row`}>
-        <div className={styles.languages}>
+      <div className="flex justify-between flex-col md:flex-row">
+        <div className="mb-2">
           { languages.map(({ name, color }, idx) =>
             <span
               key={idx}
               style={bgColor(color)}
-              className={styles.language}
+              className={`rounded bg-[${color}] px-2 py-1 mx-1 text-sm`}
             >
-              <span className={styles.tagText}>{ name }</span>
+              <span className={`text-[${color}] mix-blend-overlay`}>{ name }</span>
             </span>
           )}
         </div>
-        <div className={styles.topics}>
+        <div className="mb-2">
           { repositoryTopics.map(({ topic }, idx) =>
-            <span key={idx} className={styles.topic}>{ topic }</span>
+            <span key={idx} className="rounded bg-gray-500 text-gray-50 px-2 py-1 mx-1 text-sm">{ topic }</span>
           )}
         </div>
       </div>

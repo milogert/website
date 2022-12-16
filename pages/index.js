@@ -7,7 +7,7 @@ import features from '../lib/features'
 
 const qa = [
   {
-    question: "Why yellow?",
+    question: "What's with the yellow-ish theme?",
     answer: "Nobody else plays as yellow.",
   },
 ]
@@ -21,16 +21,16 @@ const Home = ({ allPostsData }) => {
 
     <Hero>
       <div className="text-4xl">Hello</div>
-      <div className="text-2xl">I'm <b>Milo Gertjejansen</b>, a software engineer currently living in Minnesota working at <a href="articulate.com" className="webLink">Articulate</a>.</div>
+      <div className="text-2xl">I'm <b>Milo Gertjejansen</b>, a software engineer currently living in Maine working at <a href="articulate.com" className="webLink">Articulate</a>.</div>
     </Hero>
 
     <div className="content">
       { features.resume
         ? <p className="my-4">
-          Here I <Link href="/projects"><a className="webLink">showcase some work I have done</a></Link> as well as host an <Link href="/resume"><a className="webLink">online adaption of my resume</a></Link>.
+          Here I <Link href="/projects" className="webLink">showcase some work I have done</Link> as well as host an <span href="/resume" className="webLink cursor-not-allowed">online adaptation of my resume</span>.
         </p>
         : <p className="my-4">
-          Here I <Link href="/projects"><a className="webLink">showcase some work I have done</a></Link>.
+          Here I <Link href="/projects" className="webLink">showcase some work I have done</Link>.
         </p>
       }
       <p className="my-4">

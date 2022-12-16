@@ -1,8 +1,7 @@
 import DiagonalWrapper from './diagonalWrapper'
-import styles from './hero.module.css'
 
 const Hero = ({ children }) =>
-  <div className={styles.hero}>
+  <div className="-mt-28">
     <DiagonalWrapper background={{ color: 'white', backgroundColor: '#5B55F3' }}>
       {children}
     </DiagonalWrapper>

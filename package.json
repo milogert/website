@@ -1,5 +1,6 @@
 {
-  "name": "learn-starter",
+  "name": "milogert.com",
+  "description": "Milo Gertjejansen's website for milogert.com.",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,30 +9,33 @@
     "start": "next start"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
-    "@fortawesome/fontawesome-svg-core": "^1.2.28",
-    "@fortawesome/free-brands-svg-icons": "^5.13.0",
-    "@fortawesome/free-solid-svg-icons": "^5.13.0",
-    "@fortawesome/react-fontawesome": "^0.1.10",
-    "axios": "^0.19.2",
-    "dotenv": "^8.2.0",
-    "gray-matter": "^4.0.2",
-    "next": "^9.4.4",
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.15",
+    "autoprefixer": "^10.3.4",
+    "axios": "^0.21.4",
+    "dotenv": "^10.0.0",
+    "eslint-config-next": "^13.0.7",
+    "gray-matter": "^4.0.3",
+    "next": "^13.0.7",
+    "postcss": "^8.3.6",
     "ramda": "^0.27.1",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "react-responsive-carousel": "^3.2.7",
-    "styled-jsx": "^3.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-responsive-carousel": "^3.2.21",
+    "styled-jsx": "^4.0.1",
     "styled-jsx-plugin-postcss": "^4.0.1"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.20.0",
-    "eslint-plugin-react-hooks": "^2.5.1",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "postcss-preset-env": "^6.7.0",
-    "tailwindcss": "^1.4.6"
+    "tailwindcss": "^2.2.15"
   }
 }

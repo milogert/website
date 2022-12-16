@@ -5,6 +5,11 @@ import Hero from '../components/hero'
 
 const helpers = [
   {
+    name: 'Frostgrave Tools',
+    href: 'https://fgtools.milogert.com',
+    description: 'Pre-game wizard sheet and spell card tool. Not intended to be used during a game! Generate your wizard sheet and print your spell cards.',
+  },
+  {
     name: 'For What Remains Squad Manager',
     href: 'https://basement.milogert.com',
     description: 'Squad manager for the game For What Remains designed by David Thompson.',

@@ -1,29 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes, faChevronCircleDown,faChevronCircleUp } from '@fortawesome/free-solid-svg-icons'
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 
-import {
-  arrowBump,
-  dropdown,
-  dropdownWrapper,
-  iconButton,
-  leftNav,
-  link,
-  linkActive,
-  linkHover,
-  links,
-  linksHolder,
-  me,
-  menu,
-  menuButton,
-  nav,
-  navInner,
-  rightNav,
-  showingWrapper,
-} from './nav.module.css'
 import features from '../lib/features'
 
 const leftTopButtons = [
@@ -40,6 +22,7 @@ const rightBottomButtons = [
 
 const Nav = () => {
   const [ menuOpen, setMenuOpen ] = useState(false)
+  const [ portalElement, setPortalElement ] = useState(null)
   const router = useRouter()
   const { pathname } = router
 
@@ -47,58 +30,79 @@ const Nav = () => {
     return pathname === href
   }
 
-  return <nav
-    className={nav}
-  >
-    <div className={navInner}>
-      <div className={me}>
-        <Link href="/"><a><img src="https://www.gravatar.com/avatar/a86c13468543741fef7b0c0c04b1fe61?s=200" /></a></Link>
+  useEffect(() => {
+    if (!portalElement) {
+      setPortalElement(document.getElementById("portal"))
+    }
+  })
+
+  return <nav className="bg-yellow-500 relative z-10 h-16">
+    <div className="max-w-3xl h-full mx-auto flex items-center justify-start flex-wrap">
+      <div className="h-12 w-12 mx-4">
+        <Link href="/">
+          <img
+            className="object-cover w-full rounded-full"
+            src="https://www.gravatar.com/avatar/a86c13468543741fef7b0c0c04b1fe61?s=200"
+          />
+        </Link>
       </div>
 
-      <div className={`${linksHolder} hidden sm:flex`}>
-        <div className={`${links} ${leftNav}`}>
+      <div className="justify-between items-center flex-grow h-full hidden sm:flex">
+        <div className="flex items-center h-full">
           { leftTopButtons.filter(({ name }) => Boolean(name)).map(({ name, href }, idx) =>
-            <Link key={idx} href={href}>
-              <a className={`${link} ${linkHover} ${isActiveButton(href) ? linkActive : ''}`}>{ name }</a>
+            <Link
+              key={idx}
+              href={href}
+              className={`flex items-center h-full px-4 hover:bg-yellow-300 ${isActiveButton(href) ? 'bg-yellow-400' : ''}`}
+            >
+              { name }
             </Link>
           )}
         </div>
-        <div className={`${links} ${rightNav}`}>
+        <div className="flex items-center h-full">
           { rightBottomButtons.map(({ name, href, icon }, idx) =>
-            <a key={idx} className={`${link} ${linkHover}`} href={href}>
-              <FontAwesomeIcon className={iconButton} icon={icon} /> { name }
+            <a key={idx} className="flex items-center h-full px-4 hover:bg-yellow-400 focus:outline-none" href={href}>
+              <FontAwesomeIcon className="mr-1 w-4 inline-block" icon={icon} /> { name }
             </a>
           )}
         </div>
       </div>
 
-      <div className={`${menu} flex sm:hidden`}>
-        <button className={menuButton} onClick={() => setMenuOpen(!menuOpen)}>
-          <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} />
+      <div className="flex-grow justify-end items-center flex sm:hidden">
+        <button className="h-10 w-10 rounded-full mr-4 flex justify-center items-center hover:bg-yellow-400 focus:outline-none" onClick={() => setMenuOpen(!menuOpen)}>
+          <FontAwesomeIcon className="h-6 w-6" icon={menuOpen ? faTimes : faBars} />
         </button>
       </div>
     </div>
-    <div className={`${dropdownWrapper} ${menuOpen ? showingWrapper : null}`}>
-      <div className={arrowBump} />
+    {portalElement && createPortal(
+      <div className={`mt-20 flex-col -mb-2 float-right m-4 absolute right-0 top-0 rounded border-2 border-yellow-500 bg-white py-2 ${menuOpen ? 'flex opacity-100' : 'hidden opacity-0'}`}>
+        <div className="border-l-2 border-t-2 border-yellow-500 h-3 w-3 transform rotate-45 absolute bg-white right-4 -top-2" />
 
-      <div className={dropdown}>
-        { leftTopButtons.filter(({ name }) => Boolean(name)).map(({ name, href }, idx) =>
-          <div key={idx} onClick={() => setMenuOpen(false)}>
-            <Link href={href}>
-              <a className={`${link} ${isActiveButton(href) ? 'active' : ''}`}>{ name }</a>
-            </Link>
-          </div>
-        )}
-        <hr />
-        { rightBottomButtons.map(({ name, href, icon }, idx) =>
-          <div key={idx} onClick={() => setMenuOpen(false)}>
-            <a className={link} href={href}>
-              <FontAwesomeIcon className={iconButton} icon={icon} /> { name }
-            </a>
-          </div>
-        )}
-      </div>
-    </div>
+        <div>
+          { leftTopButtons.filter(({ name }) => Boolean(name)).map(({ name, href }, idx) =>
+            <div key={idx} className="h-10 px-4 hover:bg-gray-200" onClick={() => setMenuOpen(false)}>
+              <Link
+                href={href}
+                className={`flex items-center h-full px-4 ${isActiveButton(href) ? 'active' : ''} h-10`}
+              >
+                { name }
+              </Link>
+            </div>
+          )}
+          <hr className="my-2" />
+          { rightBottomButtons.map(({ name, href, icon }, idx) =>
+            <div key={idx} className="h-10 px-4 hover:bg-gray-200" onClick={() => setMenuOpen(false)}>
+              <a className="flex items-center h-full px-4" href={href}>
+                <span className="mr-1 w-4 inline-block">
+                  <FontAwesomeIcon icon={icon} />
+                </span>
+                { name }
+              </a>
+            </div>
+          )}
+        </div>
+      </div>, portalElement
+    )}
   </nav>
 }
 

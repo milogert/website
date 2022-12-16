@@ -16,16 +16,20 @@ const OverviewCard = () => <div className={`${card} flex-col sm:flex-row items-c
     <div className={header}>
       Milo Gertjejansen
       <div className={headerSub}>
-        Software Engineer
+        Machine Sorcerer
       </div>
     </div>
     <div className={contact}>
       <ul>
-        <li>
+        <li className="flex justify-between">
+          <span className={contactType}>GitHub</span>
+          <a className="webLink" href="https://github.com/milogert">https://github.com/milogert</a>
+        </li>
+        <li className="flex justify-between">
           <span className={contactType}>Email</span>
           <a className="webLink" href="mailto:&#109;&#105;&#108;&#111;+&#115;&#105;&#116;&#101;&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#109;&#105;&#108;&#111;&#103;&#101;&#114;&#116;&#046;&#099;&#111;&#109;">&#109;&#105;&#108;&#111;+&#115;&#105;&#116;&#101;&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#109;&#105;&#108;&#111;&#103;&#101;&#114;&#116;&#046;&#099;&#111;&#109;</a>
         </li>
-        <li>
+        <li className="flex justify-between">
           <span className={contactType}>LinkedIn</span>
           <a className="webLink" href="https://linkedin.com/in/milogert">https://linkedin.com/in/milogert</a>
         </li>
