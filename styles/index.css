@@ -26,7 +26,7 @@
 
 .content {
   @apply my-0 mx-auto py-4 px-2;
-  max-width: 50rem;
+  max-width: 56rem;
 }
 
 .title {

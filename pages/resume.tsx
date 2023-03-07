@@ -6,7 +6,7 @@ const Resume = () => <div>
   <Head>
     <title>Resume - Milo Gertjejansen</title>
   </Head>
-  <div className="max-w-4xl mx-auto mt-4">
+  <div className="max-w-3xl mx-auto mt-4">
     <Sections />
   </div>
 </div>

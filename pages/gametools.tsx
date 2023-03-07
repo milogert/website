@@ -1,3 +1,4 @@
+import React from 'react'
 import Head from 'next/head'
 
 import DiagonalWrapper from '../components/diagonalWrapper'
@@ -42,35 +43,37 @@ const tools = [
   },
 ]
 
-const Row = ({ name, href, description, comingSoon = false }) =>
+const Row = ({ name, href, description, comingSoon = false }) => (
   <div className={comingSoon ? "opacity-50" : ""}>
     <div className="text-lg">
       {comingSoon && <span className="rounded bg-gray-500 px-2 py-1 mx-1 text-sm">Coming Soon!</span>}
       {href
-        ? <a href={href} className="webLink">{ name }</a>
+        ? <a href={href} className="webLink">{name}</a>
         : name
       }
     </div>
-    <div className="text-base ml-4">{ description }</div>
+    <div className="text-base ml-4">{description}</div>
   </div>
+)
 
-const GameTools = ({}) => <>
-  <Head>
-    <title>Game Tools - Milo Gertjejansen</title>
-  </Head>
+const GameTools = ({ }) => (
+  <>
+    <Head>
+      <title>Game Tools - Milo Gertjejansen</title>
+    </Head>
 
-  <div className="gametools-page">
-    <Hero>
-      <div className="text-5xl">Game Tools</div>
-      <p>Here are links to various tools I have create surrounding board games. These include helper apps (mostly as fun side projects) as well as tools for Board Game Geek.</p>
-    </Hero>
+    <div className="gametools-page">
+      <Hero>
+        <div className="text-5xl">Game Tools</div>
+        <p>Here are links to various tools I have create surrounding board games. These include helper apps (mostly as fun side projects) as well as tools for Board Game Geek.</p>
+      </Hero>
 
       <DiagonalWrapper
         background={{ backgroundColor: 'white' }}
       >
         <div className="content">
           <div className="text-3xl">Helper Apps</div>
-          { helpers.map((item, idx) => <Row key={idx} {...item} />) }
+          {helpers.map((item, idx) => <Row key={idx} {...item} />)}
         </div>
       </DiagonalWrapper>
 
@@ -79,11 +82,12 @@ const GameTools = ({}) => <>
       >
         <div className="content">
           <div className="text-3xl">Board Game Geek Apps</div>
-          { tools.map((item, idx) => <Row key={idx} {...item} />) }
+          {tools.map((item, idx) => <Row key={idx} {...item} />)}
         </div>
       </DiagonalWrapper>
-  </div>
-</>
+    </div>
+  </>
+)
 
 export async function getStaticProps() {
   return { props: {} }
