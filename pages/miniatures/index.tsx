@@ -1,7 +1,7 @@
+import { Hero } from 'components/hero'
+import * as rawData from 'data/project.json'
 import Link from 'next/link'
 import React from 'react'
-import Hero from '../../components/hero'
-import rawData from '../../data/project'
 
 const data = rawData as ProjectData
 
@@ -18,7 +18,7 @@ const ProjectCard = (props: ProjectContent) => {
         className="h-64 w-64 bg-cover rounded-3xl flex flex-col-reverse items-center"
         style={{ backgroundImage: `url(${splashImage?.fields.file.url})` }}
       >
-        <div className="w-full text-center pt-10 pb-2 rounded bg-gradient-to-t from-white via-white to-transparent">
+        <div className="text-xl w-full text-center pt-10 pb-2 rounded bg-gradient-to-t from-white via-white to-transparent">
           {title}
         </div>
       </div>

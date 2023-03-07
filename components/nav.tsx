@@ -23,7 +23,7 @@ const rightBottomButtons = [
   { name: 'LinkedIn', href: 'https://linkedin.com/in/milogert', icon: faLinkedin },
 ]
 
-const Nav = () => {
+export const Nav = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [portalElement, setPortalElement] = useState(null)
   const router = useRouter()
@@ -111,5 +111,3 @@ const Nav = () => {
     </nav>
   )
 }
-
-export default Nav

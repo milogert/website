@@ -1,12 +1,47 @@
 /* eslint-disable unicorn/filename-case */
-import React from 'react'
-import { Hero } from "../../components/hero"
-import rawData from '../../data/project'
+import { Hero } from 'components/hero'
+import * as rawData from 'data/project.json'
+import React, { useState } from 'react'
 
 const data = rawData as ProjectData
 
 type MiniatureProjectType = {
   project: ProjectContent
+}
+
+type ProjectImageProps = {
+  image: Image
+}
+
+type ZoomedImageProps = {
+  image: Image
+  unzoom: () => void
+}
+
+const ProjectImage = (props: ProjectImageProps) => {
+  const { image } = props
+  const [zoomed, setZoomed] = useState(false)
+
+  return <>
+    <div
+      className="h-56 w-56 bg-cover cursor-zoom-in"
+      style={{ backgroundImage: `url(${image.fields.file.url})` }}
+      onClick={() => setZoomed(true)}
+    />
+    {zoomed && <ZoomedImage image={image} unzoom={() => setZoomed(false)} />}
+  </>
+}
+
+const ZoomedImage = (props: ZoomedImageProps) => {
+  const { image, unzoom } = props
+
+  return <div className="fixed z-50 h-screen w-screen bg-black inset-0 flex justify-center items-center p-20">
+    <div
+      className="h-full w-full relative bg-contain bg-center bg-no-repeat cursor-zoom-out"
+      style={{ backgroundImage: `url(${image.fields.file.url})` }}
+      onClick={unzoom}
+    />
+  </div>
 }
 
 const MiniatureProject = ({ project }: MiniatureProjectType) => {
@@ -20,7 +55,8 @@ const MiniatureProject = ({ project }: MiniatureProjectType) => {
       </div>
       <div className="grid grid-cols-4">
         {project.images.map((image: Image) =>
-          <div key={image.sys.id} className="h-56 w-56 bg-cover" style={{ backgroundImage: `url(${image.fields.file.url})` }} />
+
+          <ProjectImage key={image.sys.id} image={image} />
         )}
       </div>
     </div>

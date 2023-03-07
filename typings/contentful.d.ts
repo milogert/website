@@ -7,7 +7,7 @@ type ProjectContent = {
   id: string
   title: string
   splashImage: Image
-  image: Image[]
+  images: Image[]
   dateStarted?: DateString
   dateCompleted?: DateString
   description?: string

@@ -1,7 +1,5 @@
-import styles from './sections.module.css'
+import React from 'react'
 
-const Sections = () => <div>
+export const Sections = () => <div>
   Sections here.
 </div>
-
-export default Sections
