@@ -1,6 +1,6 @@
-declare module "*.json" {
+declare module '*.json' {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const value: any;
+  const value: any
   // eslint-disable-next-line import/no-default-export
-  export default value;
+  export default value
 }

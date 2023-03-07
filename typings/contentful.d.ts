@@ -6,8 +6,8 @@ type ProjectData = ProjectContent[]
 type ProjectContent = {
   id: string
   title: string
-  splashImage: Image
-  images: Image[]
+  splashImage?: Image
+  images?: Image[]
   dateStarted?: DateString
   dateCompleted?: DateString
   description?: string
@@ -16,26 +16,26 @@ type ProjectContent = {
 type Image = {
   metadata: {
     tags: string[]
-  },
+  }
   sys: {
     space: {
       sys: SysEntry
-    },
+    }
     id: string
     type: string
     createdAt: DateString
     updatedAt: DateString
     environment: {
       sys: SysEntry
-    },
+    }
     revision: number
     locale: string
-  },
+  }
   fields: ImageFields
 }
 
 type SysEntry = {
-  linkType: 'Environment' | 'Space'
+  linkType: string
   type: string // "Link"
   id: string
 }
@@ -49,7 +49,7 @@ type ImageFields = {
 type FileEntry = {
   url: string
   details: {
-    side: number
+    size: number
     image: {
       height: number
       width: number

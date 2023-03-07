@@ -1,6 +1,6 @@
-import { Sections } from 'components/resume/sections'
 import Head from 'next/head'
 import React from 'react'
+import { Sections } from 'components/resume/sections'
 
 const Resume = () => (
   <div>

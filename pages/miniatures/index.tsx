@@ -1,9 +1,9 @@
-import { Hero } from 'components/hero'
-import * as rawData from 'data/project.json'
 import Link from 'next/link'
 import React from 'react'
+import { Hero } from 'components/hero'
+import * as rawData from 'data/project.json'
 
-const data = rawData as ProjectData
+const data = Array.from(rawData)
 
 const ProjectCard = (props: ProjectContent) => {
   const { title, splashImage } = props
@@ -15,7 +15,7 @@ const ProjectCard = (props: ProjectContent) => {
     >
       <div
         key={title}
-        className="h-64 w-64 bg-cover rounded-3xl flex flex-col-reverse items-center"
+        className="aspect-square w-full bg-cover rounded flex flex-col-reverse items-center"
         style={{ backgroundImage: `url(${splashImage?.fields.file.url})` }}
       >
         <div className="text-xl w-full text-center pt-10 pb-2 rounded bg-gradient-to-t from-white via-white to-transparent">
@@ -41,7 +41,7 @@ const MiniatureGalleryHome = () => (
       </p>
     </Hero>
 
-    <div className="content grid grid-cols-3 gap-4">
+    <div className="content mx-10 md:mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {data.map((project: ProjectContent) => (
         <ProjectCard key={project.title} {...project} />
       ))}

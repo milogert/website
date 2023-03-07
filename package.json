@@ -4,13 +4,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npm run contentful:preload && next dev",
+    "build": "npm run contentful:preload && next build",
     "start": "next start",
     "lint": "next lint --dir . && prettier --check .",
     "lint:fix": "next lint --fix --dir . && prettier --write .",
     "postInstall": "npm run contentful:preload",
-    "contentful:preload": "babel-node scripts/getContent.js install"
+    "contentful:preload": "babel-node scripts/get-content.js install"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",

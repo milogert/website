@@ -1,5 +1,3 @@
 import React from 'react'
 
-export const Sections = () => <div>
-  Sections here.
-</div>
+export const Sections = () => <div>Sections here.</div>

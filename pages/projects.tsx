@@ -1,8 +1,8 @@
-import { Hero } from 'components/hero'
-import { RepoRow } from 'components/repo-row'
-import getPinnedRepos from 'lib/projects'
 import Head from 'next/head'
 import React from 'react'
+import { Hero } from 'components/hero'
+import { RepoRow } from 'components/repo-row'
+import { getPinnedRepos } from 'lib/projects'
 
 type ProjectsProps = {
   error: RepoError

@@ -1,9 +1,9 @@
-import { Hero } from 'components/hero'
-import features from 'lib/features'
-import { getSortedPostsData } from 'lib/posts'
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
+import { Hero } from 'components/hero'
+import { features } from 'lib/features'
+import { getSortedPostsData } from 'lib/posts'
 
 const qa = [
   {
@@ -12,7 +12,7 @@ const qa = [
   },
 ]
 
-const Home = ({ allPostsData }) => {
+const Home = () => {
   return (
     <>
       <Head>
@@ -23,8 +23,8 @@ const Home = ({ allPostsData }) => {
       <Hero>
         <div className="text-4xl">Hello</div>
         <div className="text-2xl">
-          I'm <b>Milo Gertjejansen</b>, a software engineer currently living in
-          Maine working at{' '}
+          I&apos;m <b>Milo Gertjejansen</b>, a software engineer currently
+          living in Maine working at{' '}
           <a href="articulate.com" className="webLink">
             Articulate
           </a>
@@ -65,7 +65,7 @@ const Home = ({ allPostsData }) => {
         </p>
         <p className="my-4">
           Got any question? Find my contact info at the bottom of the page and
-          I'll get back to you as soon as possible!
+          I&apos;ll get back to you as soon as possible!
         </p>
         <div>
           <div className="text-2xl">Questions and Answers</div>

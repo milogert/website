@@ -1,11 +1,11 @@
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import features from 'lib/features'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { features } from 'lib/features'
 
 const leftTopButtons = [
   { name: 'Me', href: '/' },
@@ -59,8 +59,9 @@ export const Nav = () => {
                 <Link
                   key={`${href} ${name}`}
                   href={href}
-                  className={`flex items-center h-full px-4 hover:bg-yellow-300 ${isActiveButton(href) ? 'bg-yellow-400' : ''
-                    }`}
+                  className={`flex items-center h-full px-4 hover:bg-yellow-300 ${
+                    isActiveButton(href) ? 'bg-yellow-400' : ''
+                  }`}
                 >
                   {name}
                 </Link>
@@ -99,8 +100,9 @@ export const Nav = () => {
       {portalElement &&
         createPortal(
           <div
-            className={`mt-20 flex-col -mb-2 float-right m-4 absolute right-0 top-0 rounded border-2 border-yellow-500 bg-white py-2 ${menuOpen ? 'flex opacity-100' : 'hidden opacity-0'
-              }`}
+            className={`mt-20 flex-col -mb-2 float-right m-4 absolute right-0 top-0 rounded border-2 border-yellow-500 bg-white py-2 ${
+              menuOpen ? 'flex opacity-100' : 'hidden opacity-0'
+            }`}
           >
             <div className="border-l-2 border-t-2 border-yellow-500 h-3 w-3 transform rotate-45 absolute bg-white right-4 -top-2" />
 
@@ -115,8 +117,9 @@ export const Nav = () => {
                   >
                     <Link
                       href={href}
-                      className={`flex items-center h-full px-4 ${isActiveButton(href) ? 'active' : ''
-                        } h-10`}
+                      className={`flex items-center h-full px-4 ${
+                        isActiveButton(href) ? 'active' : ''
+                      } h-10`}
                     >
                       {name}
                     </Link>

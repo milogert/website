@@ -1,7 +1,7 @@
-import { DiagonalWrapper } from 'components/diagonal-wrapper'
-import { Hero } from 'components/hero'
 import Head from 'next/head'
 import React from 'react'
+import { DiagonalWrapper } from 'components/diagonal-wrapper'
+import { Hero } from 'components/hero'
 
 const helpers = [
   {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-console */
 
 require('dotenv').config()
@@ -15,9 +16,7 @@ const client = createClient({
   accessToken: TOKEN,
 })
 
-const types = [
-  'project',
-]
+const types = ['project']
 
 const getContent = async () => {
   console.log('> Starting import...')

@@ -47,6 +47,11 @@ module.exports = {
   ],
   settings: {
     react: { version: 'detect' },
+    'import/resolver': {
+      typescript: {
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      },
+    },
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -76,15 +81,33 @@ module.exports = {
     'react/no-unknown-property': 'off',
     'import/order': [
       'error',
-      { alphabetize: { order: 'asc', caseInsensitive: true } },
+      {
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          'parent',
+          ['sibling', 'index'],
+        ],
+        alphabetize: { order: 'asc', caseInsensitive: true },
+        'newlines-between': 'ignore',
+      },
     ],
     'react/prop-types': 'off', // For now until clean up propTypes
-    // 'rise-frontend/static-prop-types': 'error',
     // TODO 'import/no-cycle': 'warn',
     'import/no-self-import': 'warn',
-    // 'no-relative-import-paths/no-relative-import-paths': 'error',
     'import/no-default-export': 'error',
-    'import/no-relative-parent-imports': 'error',
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['../*'],
+            message: 'Usage of relative parent imports is not allowed.',
+          },
+        ],
+      },
+    ],
     'unicorn/filename-case': ['error', { case: 'kebabCase' }],
   },
 }
