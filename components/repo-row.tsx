@@ -6,7 +6,7 @@ import { Carousel } from 'react-responsive-carousel'
 
 import { DiagonalWrapper } from './diagonal-wrapper'
 
-const bgColor = color => ({ backgroundColor: color })
+const bgColor = (color: string) => ({ backgroundColor: color })
 
 type RepoRowProps = Repo & { wrapRow: boolean }
 

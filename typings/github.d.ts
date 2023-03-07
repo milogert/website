@@ -8,10 +8,13 @@ type Repo = {
   name: string
   homepageUrl: string
   id: string
-  licenseInfo: LicenseInfo
+  license: LicenseInfo
   url: string
-  languages: string[]
-  repositoryTopics: string[]
+  languages: {
+    name: string
+    color: string
+  }[]
+  repositoryTopics: { topic: string }[]
   screenshots: string[]
 }
 

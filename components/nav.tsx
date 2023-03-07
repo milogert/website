@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { createPortal } from 'react-dom'
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import features from 'lib/features'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faBars, faTimes, faChevronCircleDown, faChevronCircleUp,
-} from '@fortawesome/free-solid-svg-icons'
-import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
-
-import features from '../lib/features'
+import React, { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 const leftTopButtons = [
   { name: 'Me', href: '/' },
@@ -20,7 +17,11 @@ const leftTopButtons = [
 
 const rightBottomButtons = [
   { name: 'Github', href: 'https://github.com/milogert', icon: faGithub },
-  { name: 'LinkedIn', href: 'https://linkedin.com/in/milogert', icon: faLinkedin },
+  {
+    name: 'LinkedIn',
+    href: 'https://linkedin.com/in/milogert',
+    icon: faLinkedin,
+  },
 ]
 
 export const Nav = () => {
@@ -29,13 +30,13 @@ export const Nav = () => {
   const router = useRouter()
   const { pathname } = router
 
-  const isActiveButton = (href) => pathname === href
+  const isActiveButton = (href: string) => pathname === href
 
   useEffect(() => {
     if (!portalElement) {
       setPortalElement(document.getElementById('portal'))
     }
-  })
+  }, [portalElement])
 
   return (
     <nav className="bg-yellow-500 relative z-10 h-16">
@@ -52,21 +53,30 @@ export const Nav = () => {
 
         <div className="justify-between items-center flex-grow h-full hidden sm:flex">
           <div className="flex items-center h-full">
-            {leftTopButtons.filter(({ name }) => Boolean(name)).map(({ name, href }) => (
-              <Link
-                key={`${href} ${name}`}
-                href={href}
-                className={`flex items-center h-full px-4 hover:bg-yellow-300 ${isActiveButton(href) ? 'bg-yellow-400' : ''}`}
-              >
-                {name}
-              </Link>
-            ))}
+            {leftTopButtons
+              .filter(({ name }) => Boolean(name))
+              .map(({ name, href }) => (
+                <Link
+                  key={`${href} ${name}`}
+                  href={href}
+                  className={`flex items-center h-full px-4 hover:bg-yellow-300 ${isActiveButton(href) ? 'bg-yellow-400' : ''
+                    }`}
+                >
+                  {name}
+                </Link>
+              ))}
           </div>
           <div className="flex items-center h-full">
             {rightBottomButtons.map(({ name, href, icon }) => (
-              <a key={href} className="flex items-center h-full px-4 hover:bg-yellow-400 focus:outline-none" href={href}>
-                <FontAwesomeIcon className="mr-1 w-4 inline-block" icon={icon} />
-                {' '}
+              <a
+                key={href}
+                className="flex items-center h-full px-4 hover:bg-yellow-400 focus:outline-none"
+                href={href}
+              >
+                <FontAwesomeIcon
+                  className="mr-1 w-4 inline-block"
+                  icon={icon}
+                />{' '}
                 {name}
               </a>
             ))}
@@ -74,40 +84,63 @@ export const Nav = () => {
         </div>
 
         <div className="flex-grow justify-end items-center flex sm:hidden">
-          <button type="button" className="h-10 w-10 rounded-full mr-4 flex justify-center items-center hover:bg-yellow-400 focus:outline-none" onClick={() => setMenuOpen(!menuOpen)}>
-            <FontAwesomeIcon className="h-6 w-6" icon={menuOpen ? faTimes : faBars} />
+          <button
+            type="button"
+            className="h-10 w-10 rounded-full mr-4 flex justify-center items-center hover:bg-yellow-400 focus:outline-none"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <FontAwesomeIcon
+              className="h-6 w-6"
+              icon={menuOpen ? faTimes : faBars}
+            />
           </button>
         </div>
       </div>
-      {portalElement && createPortal(
-        <div className={`mt-20 flex-col -mb-2 float-right m-4 absolute right-0 top-0 rounded border-2 border-yellow-500 bg-white py-2 ${menuOpen ? 'flex opacity-100' : 'hidden opacity-0'}`}>
-          <div className="border-l-2 border-t-2 border-yellow-500 h-3 w-3 transform rotate-45 absolute bg-white right-4 -top-2" />
+      {portalElement &&
+        createPortal(
+          <div
+            className={`mt-20 flex-col -mb-2 float-right m-4 absolute right-0 top-0 rounded border-2 border-yellow-500 bg-white py-2 ${menuOpen ? 'flex opacity-100' : 'hidden opacity-0'
+              }`}
+          >
+            <div className="border-l-2 border-t-2 border-yellow-500 h-3 w-3 transform rotate-45 absolute bg-white right-4 -top-2" />
 
-          <div>
-            {leftTopButtons.filter(({ name }) => Boolean(name)).map(({ name, href }, idx) => (
-              <div key={idx} className="h-10 px-4 hover:bg-gray-200" onClick={() => setMenuOpen(false)}>
-                <Link
-                  href={href}
-                  className={`flex items-center h-full px-4 ${isActiveButton(href) ? 'active' : ''} h-10`}
+            <div>
+              {leftTopButtons
+                .filter(({ name }) => Boolean(name))
+                .map(({ name, href }, idx) => (
+                  <div
+                    key={idx}
+                    className="h-10 px-4 hover:bg-gray-200"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <Link
+                      href={href}
+                      className={`flex items-center h-full px-4 ${isActiveButton(href) ? 'active' : ''
+                        } h-10`}
+                    >
+                      {name}
+                    </Link>
+                  </div>
+                ))}
+              <hr className="my-2" />
+              {rightBottomButtons.map(({ name, href, icon }, idx) => (
+                <div
+                  key={idx}
+                  className="h-10 px-4 hover:bg-gray-200"
+                  onClick={() => setMenuOpen(false)}
                 >
-                  {name}
-                </Link>
-              </div>
-            ))}
-            <hr className="my-2" />
-            {rightBottomButtons.map(({ name, href, icon }, idx) => (
-              <div key={idx} className="h-10 px-4 hover:bg-gray-200" onClick={() => setMenuOpen(false)}>
-                <a className="flex items-center h-full px-4" href={href}>
-                  <span className="mr-1 w-4 inline-block">
-                    <FontAwesomeIcon icon={icon} />
-                  </span>
-                  {name}
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>, portalElement,
-      )}
+                  <a className="flex items-center h-full px-4" href={href}>
+                    <span className="mr-1 w-4 inline-block">
+                      <FontAwesomeIcon icon={icon} />
+                    </span>
+                    {name}
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>,
+          portalElement,
+        )}
     </nav>
   )
 }

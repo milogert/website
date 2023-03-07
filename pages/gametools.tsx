@@ -67,7 +67,7 @@ const Row = ({ name, href, description, comingSoon = false }) => (
   </div>
 )
 
-const GameTools = ({ }) => (
+const GameTools = () => (
   <>
     <Head>
       <title>Game Tools - Milo Gertjejansen</title>
