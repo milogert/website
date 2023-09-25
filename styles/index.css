@@ -35,3 +35,35 @@
 }
 
 @tailwind utilities;
+
+.react-toggle {
+  @apply
+    flex
+    justify-center
+    items-center
+  flex-shrink-0
+  ;
+}
+
+.react-toggle-track {
+}
+
+.react-toggle-thumb {
+  @apply
+  rounded
+  border
+  border-black
+  w-4
+  h-4
+  bg-red-500
+  ;
+}
+
+.react-toggle-screenreader-only {
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}

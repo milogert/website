@@ -3,9 +3,14 @@ import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, ChangeEvent } from 'react'
 import { createPortal } from 'react-dom'
 import { features } from 'lib/features'
+import Toggle from 'react-toggle'
+// import "react-toggle/style.css"
+import './toggle.module.css'
+
+import { useMedia } from 'react-use'
 
 const leftTopButtons = [
   { name: 'Me', href: '/' },
@@ -29,6 +34,21 @@ export const Nav = () => {
   const [portalElement, setPortalElement] = useState(null)
   const router = useRouter()
   const { pathname } = router
+  const systemDarkMode = useMedia('(prefers-color-scheme: dark)')
+  const [isDark, setIsDark] = useState(false)
+
+  useEffect(() => {
+    const lsDarkToggle = window.localStorage.getItem('darkMode')
+    setIsDark(lsDarkToggle !== null ? lsDarkToggle === 'true' : systemDarkMode)
+  })
+
+  const toggleDarkMode = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setIsDark(e.target.checked)
+    if (window) {
+      window.localStorage.setItem('darkMode', `${e.target.checked}`)
+    }
+  }, [])
+
 
   const isActiveButton = (href: string) => pathname === href
 
@@ -68,6 +88,12 @@ export const Nav = () => {
               ))}
           </div>
           <div className="flex items-center h-full">
+            <Toggle
+              className="border rounded"
+              checked={isDark}
+              onChange={toggleDarkMode}
+              icons={{ checked: '🌝', unchecked: '🌞'}}
+            />
             {rightBottomButtons.map(({ name, href, icon }) => (
               <a
                 key={href}

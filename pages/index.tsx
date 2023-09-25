@@ -24,8 +24,8 @@ const Home = () => {
         <div className="text-4xl">Hello</div>
         <div className="text-2xl">
           I&apos;m <b>Milo Gertjejansen</b>, a software engineer currently
-          living in Maine working at{' '}
-          <a href="articulate.com" className="webLink">
+          living in Minnesota working at{' '}
+          <a href="https://articulate.com" className="webLink">
             Articulate
           </a>
           .
