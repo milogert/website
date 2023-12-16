@@ -1,5 +1,5 @@
 module.exports = {
-  purge: ['./components/**/*.js', './pages/**/*.js'],
+  content: ['./components/**/*.js', './pages/**/*.js'],
   theme: {
     extend: {
       screens: {
@@ -8,7 +8,6 @@ module.exports = {
       }
     }
   },
-  variants: {},
   plugins: [],
 }
 
