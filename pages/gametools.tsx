@@ -47,7 +47,7 @@ const tools = [
 
 const Row = ({ name, href, description, comingSoon = false }) => (
   <div className={comingSoon ? 'opacity-50' : ''}>
-    <div className="text-lg">
+    <h3 className="text-lg">
       {comingSoon && (
         <span className="rounded bg-secondary px-2 py-1 mx-1 text-sm">
           Coming Soon!
@@ -60,7 +60,7 @@ const Row = ({ name, href, description, comingSoon = false }) => (
       ) : (
         name
       )}
-    </div>
+    </h3>
     <div className="text-base ml-4">{description}</div>
   </div>
 )
@@ -72,22 +72,22 @@ const GameTools = () => (
     </Head>
 
     <div className="flex flex-col gap-8">
-      <div className="text-5xl">Game Tools</div>
+      <h1 className="text-5xl">Game Tools</h1>
       <p>
         Here are links to various tools I have create surrounding board games.
-        These include helper apps (mostly as fun side projects) as well as
-        tools for Board Game Geek.
+        These include helper apps (mostly as fun side projects) as well as tools
+        for Board Game Geek.
       </p>
 
       <div className="flex flex-col gap-4">
-        <div className="text-3xl">Helper Apps</div>
+        <h2 className="text-3xl">Helper Apps</h2>
         {helpers.map((item, idx) => (
           <Row key={idx} {...item} />
         ))}
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="text-3xl">Board Game Geek Apps</div>
+        <h2 className="text-3xl">Board Game Geek Apps</h2>
         {tools.map((item, idx) => (
           <Row key={idx} {...item} />
         ))}

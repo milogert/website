@@ -17,16 +17,16 @@ const ProjectCard = (props: ProjectContent) => {
           src={splashImage?.fields.file.url}
           alt="avatar"
         />
-      <div className="text-2xl">
+      <h2 className="text-2xl">
         {title}
-      </div>
+      </h2>
     </Link>
   )
 }
 
 const MiniatureGalleryHome = () => (
   <div className="flex flex-col gap-8">
-    <div className="text-5xl">Miniature Gallery</div>
+    <h1 className="text-5xl">Miniature Gallery</h1>
     <p>
       These are some minitures I painted. I&apos;m not the best but I&apos;m
       certainly proud of them!

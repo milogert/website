@@ -50,7 +50,7 @@ type MiniatureProjectType = {
 const MiniatureProject = ({ project }: MiniatureProjectType) => {
   return (
     <div className="flex flex-col gap-8">
-      <h2 className="text-5xl">{project.title}</h2>
+      <h1 className="text-5xl">{project.title}</h1>
 
       <div className="flex flex-col items-center md:flex-row gap-8">
         <div className="flex-shrink-0 w-48">

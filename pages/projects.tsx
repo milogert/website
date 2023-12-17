@@ -15,7 +15,7 @@ const Projects = ({ error, pinnedRepos }: ProjectsProps) => (
     </Head>
 
     <div className="flex flex-col gap-8">
-      <div className="text-5xl">Projects</div>
+      <h1 className="text-5xl">Projects</h1>
       <p>
         These are personal projects I have worked on in the past. Feel free to
         send me an email if you have questions or suggestions!

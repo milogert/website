@@ -59,6 +59,11 @@ const tree: TreeNode = {
       href: 'https://linkedin.com/in/milogert',
       external: true,
     },
+    {
+      name: 'Email',
+      href: 'mailto:&#109;&#105;&#108;&#111;+&#115;&#105;&#116;&#101;&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#109;&#105;&#108;&#111;&#103;&#101;&#114;&#116;&#046;&#099;&#111;&#109;',
+      external: true,
+    },
   ],
 }
 
@@ -139,7 +144,7 @@ export const Nav = () => {
     'transition-all',
     {
       'p-1': !systemMedium && !menuOpen,
-      'p-3': systemMedium || menuOpen,
+      'p-3 w-64': systemMedium || menuOpen,
     },
   )
 

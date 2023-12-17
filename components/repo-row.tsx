@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { Carousel } from 'react-responsive-carousel'
 
-import { DiagonalWrapper } from './diagonal-wrapper'
-
 const bgColor = (color: string) => ({ backgroundColor: color })
 
 type RepoRowProps = Repo & { wrapRow: boolean }
@@ -24,16 +22,16 @@ export const RepoRow = ({
 }: RepoRowProps) => (
   <div className="row">
     <div className="flex justify-between">
-      <div>
-        <code className="text-3xl mr-4">{name}</code>
-        <a className="mr-4" href={url}>
+      <div className="flex items-end gap-4">
+        <h2 className="text-3xl">{name}</h2>
+        <a className="text-link" href={url}>
           <span className="w-4 h-4 inline-block">
             <FontAwesomeIcon icon={faGithub} />
           </span>
           <span className="ml-2 hidden md:inline">View the code</span>
         </a>
         {homepageUrl && (
-          <a className="mr-4" href={homepageUrl}>
+          <a className="text-link" href={homepageUrl}>
             <span className="w-4 h-4 inline-block">
               <FontAwesomeIcon icon={faLink} />
             </span>
