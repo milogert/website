@@ -11,7 +11,7 @@ class MyDocument extends Document {
     return (
       <Html data-theme="srcery" className="font-mono">
         <Head />
-        <body className="bg-brand text-primary">
+        <body className="bg-brand text-primary transition-colors">
           <Main />
           <NextScript />
         </body>
