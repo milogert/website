@@ -22,7 +22,7 @@ const Projects = ({ error, pinnedRepos }: ProjectsProps) => (
       </p>
 
       {error && (
-        <div className="content">
+        <div className="">
           <div className="p-4 bg-error bg-opacity-25 border-2 rounded border-error-border text-primary shadow-lg">
             {error.message}
             <pre>
@@ -33,7 +33,7 @@ const Projects = ({ error, pinnedRepos }: ProjectsProps) => (
       )}
 
       {pinnedRepos.map((repo, idx: number) => (<>
-        <RepoRow key={repo.id} {...repo} wrapRow={idx % 2 === 1} />
+        <RepoRow key={repo.id} {...repo} />
         {idx < pinnedRepos.length - 1 && <div className="rounded h-1 w-full bg-secondary" />}
       </>))}
     </div>

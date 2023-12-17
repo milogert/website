@@ -6,7 +6,7 @@ import { Carousel } from 'react-responsive-carousel'
 
 const bgColor = (color: string) => ({ backgroundColor: color })
 
-type RepoRowProps = Repo & { wrapRow: boolean }
+type RepoRowProps = Repo
 
 export const RepoRow = ({
   name,
@@ -18,7 +18,6 @@ export const RepoRow = ({
   license,
   repositoryTopics,
   screenshots,
-  wrapRow,
 }: RepoRowProps) => (
   <div className="row">
     <div className="flex justify-between">
