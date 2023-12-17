@@ -1,7 +1,14 @@
 import Head from 'next/head'
 import React from 'react'
 
-const apps = [
+type AppType = {
+  name: string
+  href: string
+  icon?: string
+  description: string
+}
+
+const apps: AppType[] = [
   {
     name: 'TinyTinyClient',
     href: 'https://apps.apple.com/app/id6451119517',
@@ -15,7 +22,7 @@ const apps = [
   },
 ]
 
-const Row = ({ name, href, icon, description }) => (
+const Row = ({ name, href, icon, description }: AppType) => (
   <div className="flex flex-col md:flex-row gap-4">
     {icon ? (
       <img
