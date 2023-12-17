@@ -1,5 +1,4 @@
 import React from 'react'
-import { OverviewCard } from './resume/card'
 
 export const Layout = ({ children }) => (
   <div className="text-base">
