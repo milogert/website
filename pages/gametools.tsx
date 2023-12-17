@@ -49,7 +49,7 @@ const Row = ({ name, href, description, comingSoon = false }) => (
   <div className={comingSoon ? 'opacity-50' : ''}>
     <div className="text-lg">
       {comingSoon && (
-        <span className="rounded bg-gray-500 px-2 py-1 mx-1 text-sm">
+        <span className="rounded bg-secondary px-2 py-1 mx-1 text-sm">
           Coming Soon!
         </span>
       )}
@@ -79,14 +79,14 @@ const GameTools = () => (
         tools for Board Game Geek.
       </p>
 
-      <div className="">
+      <div className="flex flex-col gap-4">
         <div className="text-3xl">Helper Apps</div>
         {helpers.map((item, idx) => (
           <Row key={idx} {...item} />
         ))}
       </div>
 
-      <div className="">
+      <div className="flex flex-col gap-4">
         <div className="text-3xl">Board Game Geek Apps</div>
         {tools.map((item, idx) => (
           <Row key={idx} {...item} />

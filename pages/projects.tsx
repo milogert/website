@@ -32,9 +32,10 @@ const Projects = ({ error, pinnedRepos }: ProjectsProps) => (
         </div>
       )}
 
-      {pinnedRepos.map((repo, idx: number) => (
+      {pinnedRepos.map((repo, idx: number) => (<>
         <RepoRow key={repo.id} {...repo} wrapRow={idx % 2 === 1} />
-      ))}
+        {idx < pinnedRepos.length - 1 && <div className="rounded h-1 w-full bg-secondary" />}
+      </>))}
     </div>
   </>
 )

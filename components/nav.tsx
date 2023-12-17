@@ -7,17 +7,24 @@ import * as rawData from 'data/project.json'
 const data = Array.from(rawData)
 
 import { features } from 'lib/features'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 
 type TreeNode = {
   name: string
   href: string
   nodes?: TreeNode[]
+  external?: boolean
 }
 
 const tree: TreeNode = {
   name: 'Me',
   href: '/',
   nodes: [
+    {
+      name: 'Apps',
+      href: '/apps',
+    },
     {
       name: 'Projects',
       href: '/projects',
@@ -26,7 +33,10 @@ const tree: TreeNode = {
       name: 'Game Tools',
       href: '/gametools',
     },
-    ...(features.resume ? [{ name: 'Resume', href: '/resume' }] : []),
+    ...(features.resume ? [{
+      name: 'Resume',
+      href: '/resume',
+    }] : []),
     {
       name: 'Miniatures',
       href: '/miniatures',
@@ -35,10 +45,15 @@ const tree: TreeNode = {
         href: `/miniatures/${project.id}`,
       })),
     },
-    { name: 'Github', href: 'https://github.com/milogert' },
+    {
+      name: 'Github',
+      href: 'https://github.com/milogert',
+      external: true,
+    },
     {
       name: 'LinkedIn',
       href: 'https://linkedin.com/in/milogert',
+      external: true,
     },
   ],
 }
@@ -48,7 +63,7 @@ const themes = ['srcery', 'srceryLight', 'gruvbox', 'gruvboxLight', 'dracula']
 const Tree = (props: TreeNode & { depth: number; closeMenu: () => void }) => {
   const router = useRouter()
   const { asPath } = router
-  const { name, href, nodes, depth, closeMenu } = props
+  const { name, href, nodes, depth, closeMenu, external } = props
   const isActiveButton = asPath === href
 
   const linkClassName = classnames(
@@ -64,8 +79,9 @@ const Tree = (props: TreeNode & { depth: number; closeMenu: () => void }) => {
         marginLeft: `${depth / 2}rem`,
       }}
     >
-      <Link href={href} onClick={closeMenu} className={linkClassName}>
+      <Link href={href} onClick={closeMenu} className={linkClassName} target={external ? '_blank' : '_self'}>
         {name}
+        {external && <FontAwesomeIcon className="ml-2" icon={faExternalLinkAlt} /> }
       </Link>
       {nodes &&
         nodes.map((node) => (
