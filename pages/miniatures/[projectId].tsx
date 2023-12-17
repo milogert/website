@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/filename-case */
 import React, { useState } from 'react'
-import { Hero } from 'components/hero'
 import * as rawData from 'data/project.json'
 
 const data = Array.from(rawData)
@@ -50,19 +49,19 @@ type MiniatureProjectType = {
 
 const MiniatureProject = ({ project }: MiniatureProjectType) => {
   return (
-    <div>
-      <Hero title={project.title}>
-        {project.description && <p className="my-4">{project.description}</p>}
-      </Hero>
-      <div className="content">
-        <div
-          className="bg-cover h-[48rem] w-full -mt-36 mb-4 flex flex-col-reverse"
-          style={{
-            backgroundImage: `url(${project.splashImage?.fields.file.url})`,
-          }}
-        >
-          <div className="h-10 bg-gradient-to-t from-white via-white to-transparent" />
+    <div className="flex flex-col gap-8">
+      <h1 className="text-5xl">{project.title}</h1>
+
+      <div className="flex flex-col items-center md:flex-row gap-8">
+        <div className="flex-shrink-0 w-48">
+          <ProjectImage image={project.splashImage} />
         </div>
+
+        {project.description && <p className="">{project.description}</p>}
+      </div>
+
+      <div className="">
+
         <div className="grid grid-cols-4 items-center">
           {project.images?.map((image: Image) => (
             <ProjectImage key={image.sys.id} image={image} />
