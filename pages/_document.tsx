@@ -9,9 +9,9 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html data-theme="srcery" className="font-mono">
         <Head />
-        <body>
+        <body className="bg-brand text-primary">
           <Main />
           <NextScript />
         </body>

@@ -6,7 +6,7 @@ export const Layout = ({ children }) => (
     {children}
     <div className="flex flex-col items-center">
       <OverviewCard />
-      <div className="text-center text-gray-500 mt-5 pb-5">
+      <div className="text-center text-secondary mt-5 pb-5">
         &#169; Copyright {new Date().getFullYear()} Milo Gertjejansen
       </div>
     </div>

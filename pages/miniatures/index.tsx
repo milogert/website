@@ -11,41 +11,36 @@ const ProjectCard = (props: ProjectContent) => {
   return (
     <Link
       href={`/miniatures/${props.id}`}
-      className="hover:scale-105 transition-transform ease-in"
+      className="flex items-center gap-2 rounded p-2 transition-colors hover:bg-hover"
     >
-      <div
-        key={title}
-        className="aspect-square w-full bg-cover rounded flex flex-col-reverse items-center"
-        style={{ backgroundImage: `url(${splashImage?.fields.file.url})` }}
-      >
-        <div className="text-xl w-full text-center pt-10 pb-2 rounded bg-gradient-to-t from-white via-white to-transparent">
-          {title}
-        </div>
+        <img
+          className="h-24 w-24 object-cover rounded-full"
+          src={splashImage?.fields.file.url}
+          alt="avatar"
+        />
+      <div className="text-2xl">
+        {title}
       </div>
     </Link>
   )
 }
 
 const MiniatureGalleryHome = () => (
-  <div>
-    <Hero>
-      <div className="text-5xl">Miniature Gallery</div>
-      <p className="my-4">
-        These are some minitures I painted. I&apos;m not the best but I&apos;m
-        certainly proud of them!
-      </p>
-      <p className="my-4">
-        The project are orders from most recent to oldest. Within the projects
-        the photos are ordered from &quot;finished product&quot; to start of
-        painting.
-      </p>
-    </Hero>
+  <div className="flex flex-col gap-8">
+    <div className="text-5xl">Miniature Gallery</div>
+    <p>
+      These are some minitures I painted. I&apos;m not the best but I&apos;m
+      certainly proud of them!
+    </p>
+    <p>
+      The project are orders from most recent to oldest. Within the projects
+      the photos are ordered from &quot;finished product&quot; to start of
+      painting.
+    </p>
 
-    <div className="content mx-10 md:mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      {data.map((project: ProjectContent) => (
-        <ProjectCard key={project.title} {...project} />
-      ))}
-    </div>
+    {data.map((project: ProjectContent) => (
+      <ProjectCard key={project.title} {...project} />
+    ))}
   </div>
 )
 

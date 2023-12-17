@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
 import { DiagonalWrapper } from 'components/diagonal-wrapper'
-import { Hero } from 'components/hero'
 
 const helpers = [
   {
@@ -56,7 +55,7 @@ const Row = ({ name, href, description, comingSoon = false }) => (
         </span>
       )}
       {href ? (
-        <a href={href} className="webLink">
+        <a href={href} className="text-link">
           {name}
         </a>
       ) : (
@@ -73,33 +72,27 @@ const GameTools = () => (
       <title>Game Tools - Milo Gertjejansen</title>
     </Head>
 
-    <div className="gametools-page">
-      <Hero>
-        <div className="text-5xl">Game Tools</div>
-        <p>
-          Here are links to various tools I have create surrounding board games.
-          These include helper apps (mostly as fun side projects) as well as
-          tools for Board Game Geek.
-        </p>
-      </Hero>
+    <div className="flex flex-col gap-8">
+      <div className="text-5xl">Game Tools</div>
+      <p>
+        Here are links to various tools I have create surrounding board games.
+        These include helper apps (mostly as fun side projects) as well as
+        tools for Board Game Geek.
+      </p>
 
-      <DiagonalWrapper gradientFrom="from-white" gradientTo="to-white">
-        <div className="content">
-          <div className="text-3xl">Helper Apps</div>
-          {helpers.map((item, idx) => (
-            <Row key={idx} {...item} />
-          ))}
-        </div>
-      </DiagonalWrapper>
+      <div className="">
+        <div className="text-3xl">Helper Apps</div>
+        {helpers.map((item, idx) => (
+          <Row key={idx} {...item} />
+        ))}
+      </div>
 
-      <DiagonalWrapper>
-        <div className="content">
-          <div className="text-3xl">Board Game Geek Apps</div>
-          {tools.map((item, idx) => (
-            <Row key={idx} {...item} />
-          ))}
-        </div>
-      </DiagonalWrapper>
+      <div className="">
+        <div className="text-3xl">Board Game Geek Apps</div>
+        {tools.map((item, idx) => (
+          <Row key={idx} {...item} />
+        ))}
+      </div>
     </div>
   </>
 )

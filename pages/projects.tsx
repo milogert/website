@@ -15,18 +15,16 @@ const Projects = ({ error, pinnedRepos }: ProjectsProps) => (
       <title>Projects - Milo Gertjejansen</title>
     </Head>
 
-    <div className="projects-page">
-      <Hero>
-        <div className="text-5xl">Projects</div>
-        <p>
-          These are personal projects I have worked on in the past. Feel free to
-          send me an email if you have questions or suggestions!
-        </p>
-      </Hero>
+    <div className="flex flex-col gap-8">
+      <div className="text-5xl">Projects</div>
+      <p>
+        These are personal projects I have worked on in the past. Feel free to
+        send me an email if you have questions or suggestions!
+      </p>
 
       {error && (
         <div className="content">
-          <div className="p-4 bg-red-500 bg-opacity-25 border-2 rounded border-red-500 text-red-700 shadow-lg">
+          <div className="p-4 bg-error bg-opacity-25 border-2 rounded border-error-border text-primary shadow-lg">
             {error.message}
             <pre>
               <code>{error.code}</code>
