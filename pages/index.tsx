@@ -74,8 +74,8 @@ const Home = () => {
       </p>
 
       <p>
-        Got any question? Find my contact info at the bottom of the page and
-        I&apos;ll get back to you as soon as possible!
+        Got any question? Find my contact info in the sidebar. I&apos;ll get
+        back to you as soon as possible!
       </p>
 
       {/*<section className={`py-4`}>

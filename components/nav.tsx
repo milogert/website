@@ -143,7 +143,7 @@ export const Nav = () => {
     'bg-nav text-brand m-2 rounded',
     'transition-all',
     {
-      'p-1': !systemMedium && !menuOpen,
+      'p-1 hover:bg-hover': !systemMedium && !menuOpen,
       'p-3 w-64': systemMedium || menuOpen,
     },
   )
@@ -152,7 +152,7 @@ export const Nav = () => {
     <nav className={navClassName}>
       <button
         type="button"
-        className="h-12 w-12 flex"
+        className={`h-12 w-12 flex ${systemMedium ? 'cursor-default' : ''}`}
         onClick={systemMedium ? undefined : () => setMenuOpen(!menuOpen)}
       >
         <img
