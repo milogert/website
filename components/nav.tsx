@@ -1,3 +1,5 @@
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classnames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -7,8 +9,6 @@ import * as rawData from 'data/project.json'
 const data = Array.from(rawData)
 
 import { features } from 'lib/features'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 
 type TreeNode = {
   name: string
@@ -33,10 +33,14 @@ const tree: TreeNode = {
       name: 'Game Tools',
       href: '/gametools',
     },
-    ...(features.resume ? [{
-      name: 'Resume',
-      href: '/resume',
-    }] : []),
+    ...(features.resume
+      ? [
+        {
+          name: 'Resume',
+          href: '/resume',
+        },
+      ]
+      : []),
     {
       name: 'Miniatures',
       href: '/miniatures',
@@ -79,9 +83,16 @@ const Tree = (props: TreeNode & { depth: number; closeMenu: () => void }) => {
         marginLeft: `${depth / 2}rem`,
       }}
     >
-      <Link href={href} onClick={closeMenu} className={linkClassName} target={external ? '_blank' : '_self'}>
+      <Link
+        href={href}
+        onClick={closeMenu}
+        className={linkClassName}
+        target={external ? '_blank' : '_self'}
+      >
         {name}
-        {external && <FontAwesomeIcon className="ml-2" icon={faExternalLinkAlt} /> }
+        {external && (
+          <FontAwesomeIcon className="ml-2" icon={faExternalLinkAlt} />
+        )}
       </Link>
       {nodes &&
         nodes.map((node) => (
