@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import React from 'react'
-import { Hero } from 'components/hero'
 import * as rawData from 'data/project.json'
 
 const data = Array.from(rawData)

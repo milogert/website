@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
-import { Hero } from 'components/hero'
 import { features } from 'lib/features'
 import { getSortedPostsData } from 'lib/posts'
 
