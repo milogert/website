@@ -35,11 +35,11 @@ const tree: TreeNode = {
     },
     ...(features.resume
       ? [
-        {
-          name: 'Resume',
-          href: '/resume',
-        },
-      ]
+          {
+            name: 'Resume',
+            href: '/resume',
+          },
+        ]
       : []),
     {
       name: 'Miniatures',

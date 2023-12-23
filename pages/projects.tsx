@@ -32,10 +32,14 @@ const Projects = ({ error, pinnedRepos }: ProjectsProps) => (
         </div>
       )}
 
-      {pinnedRepos.map((repo, idx: number) => (<>
-        <RepoRow key={repo.id} {...repo} />
-        {idx < pinnedRepos.length - 1 && <div className="rounded h-1 w-full bg-secondary" />}
-      </>))}
+      {pinnedRepos.map((repo, idx: number) => (
+        <>
+          <RepoRow key={repo.id} {...repo} />
+          {idx < pinnedRepos.length - 1 && (
+            <div className="rounded h-1 w-full bg-secondary" />
+          )}
+        </>
+      ))}
     </div>
   </>
 )

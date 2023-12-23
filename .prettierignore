@@ -2,3 +2,5 @@ build
 coverage
 .next
 .cache
+
+data/project.json

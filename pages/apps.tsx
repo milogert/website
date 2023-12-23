@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import Head from 'next/head'
 import React from 'react'
 
@@ -22,32 +23,41 @@ const apps: AppType[] = [
   },
 ]
 
-const Row = ({ name, href, icon, description }: AppType) => (
-  <div className="flex flex-col md:flex-row gap-4">
-    {icon ? (
-      <img
-        className="rounded-lg h-20 w-20 object-cover self-center md:self-start shadow-lg shadow-primary"
-        src={icon}
-      />
-    ) : (
-      <div className={`h-20 w-20 self-center md:self-start ${!icon ? 'hidden md:block' : ''}`} />
-    )}
+const Row = ({ name, href, icon, description }: AppType) => {
+  const iconSpacerClassName = classNames(
+    `h-20 w-20 self-center md:self-start`,
+    {
+      'hidden md:block': !icon,
+    },
+  )
 
-    <div className="flex flex-col gap-2 grow">
-      <div className="text-lg">
-        {href ? (
-          <a href={href} className="text-link">
-            {name}
-          </a>
-        ) : (
-          name
-        )}
+  return (
+    <div className="flex flex-col md:flex-row gap-4">
+      {icon ? (
+        <img
+          className="rounded-lg h-20 w-20 object-cover self-center md:self-start shadow-lg shadow-primary"
+          src={icon}
+        />
+      ) : (
+        <div className={iconSpacerClassName} />
+      )}
+
+      <div className="flex flex-col gap-2 grow">
+        <div className="text-lg">
+          {href ? (
+            <a href={href} className="text-link">
+              {name}
+            </a>
+          ) : (
+            name
+          )}
+        </div>
+
+        <div className="text-base">{description}</div>
       </div>
-
-      <div className="text-base">{description}</div>
     </div>
-  </div>
-)
+  )
+}
 
 const Apps = () => (
   <>

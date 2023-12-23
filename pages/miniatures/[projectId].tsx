@@ -61,7 +61,6 @@ const MiniatureProject = ({ project }: MiniatureProjectType) => {
       </div>
 
       <div className="">
-
         <div className="grid grid-cols-4 items-center">
           {project.images?.map((image: Image) => (
             <ProjectImage key={image.sys.id} image={image} />

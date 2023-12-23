@@ -12,14 +12,12 @@ const ProjectCard = (props: ProjectContent) => {
       href={`/miniatures/${props.id}`}
       className="flex items-center gap-2 rounded p-2 transition-colors hover:bg-hover"
     >
-        <img
-          className="h-24 w-24 object-cover rounded-full"
-          src={splashImage?.fields.file.url}
-          alt="avatar"
-        />
-      <h2 className="text-2xl">
-        {title}
-      </h2>
+      <img
+        className="h-24 w-24 object-cover rounded-full"
+        src={splashImage?.fields.file.url}
+        alt="avatar"
+      />
+      <h2 className="text-2xl">{title}</h2>
     </Link>
   )
 }
@@ -32,9 +30,8 @@ const MiniatureGalleryHome = () => (
       certainly proud of them!
     </p>
     <p>
-      The project are orders from most recent to oldest. Within the projects
-      the photos are ordered from &quot;finished product&quot; to start of
-      painting.
+      The project are orders from most recent to oldest. Within the projects the
+      photos are ordered from &quot;finished product&quot; to start of painting.
     </p>
 
     {data.map((project: ProjectContent) => (

@@ -11,7 +11,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 // Prevent fontawesome from adding its CSS since we did it manually above:
 // eslint-disable-next-line import/order
 import { config } from '@fortawesome/fontawesome-svg-core'
-config.autoAddCss = false; /* eslint-disable import/first */
+config.autoAddCss = false /* eslint-disable import/first */
 
 const App = ({ Component, pageProps }) => {
   return (
