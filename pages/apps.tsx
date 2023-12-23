@@ -33,7 +33,7 @@ const Row = ({ name, href, icon, description }: AppType) => (
       <div className={`h-20 w-20 self-center md:self-start ${!icon ? 'hidden md:block' : ''}`} />
     )}
 
-    <div className="flex flex-col gap-2 flex-grow">
+    <div className="flex flex-col gap-2 grow">
       <div className="text-lg">
         {href ? (
           <a href={href} className="text-link">

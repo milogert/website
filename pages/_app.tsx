@@ -21,7 +21,7 @@ const App = ({ Component, pageProps }) => {
           <Nav />
         </div>
         <div className="hidden md:block w-64 flex-shrink-0 m-2" />
-        <div className="mt-14 p-4 flex-grow-1">
+        <div className="mt-14 p-4 grow">
           <Component {...pageProps} />
         </div>
       </div>
