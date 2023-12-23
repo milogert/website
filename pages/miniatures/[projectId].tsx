@@ -53,7 +53,7 @@ const MiniatureProject = ({ project }: MiniatureProjectType) => {
       <h1 className="text-5xl">{project.title}</h1>
 
       <div className="flex flex-col items-center md:flex-row gap-8">
-        <div className="flex-shrink-0 w-48">
+        <div className="shrink-0 w-48">
           <ProjectImage image={project.splashImage} />
         </div>
 

@@ -20,7 +20,7 @@ const App = ({ Component, pageProps }) => {
         <div className="fixed z-10">
           <Nav />
         </div>
-        <div className="hidden md:block w-64 flex-shrink-0 m-2" />
+        <div className="hidden md:block w-64 shrink-0 m-2" />
         <div className="mt-14 p-4 grow">
           <Component {...pageProps} />
         </div>
