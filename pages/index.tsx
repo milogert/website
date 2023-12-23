@@ -1,82 +1,82 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
-import { Hero } from 'components/hero'
 import { features } from 'lib/features'
 import { getSortedPostsData } from 'lib/posts'
 
-const qa = [
-  {
-    question: "What's with the yellow-ish theme?",
-    answer: 'Nobody else plays as yellow.',
-  },
-]
-
 const Home = () => {
   return (
-    <>
+    <div className="flex flex-col gap-8">
       <Head>
         <title>Home Page</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Hero>
-        <div className="text-4xl">Hello</div>
-        <div className="text-2xl">
-          I&apos;m <b>Milo Gertjejansen</b>, a software engineer currently
-          living in Maine working at{' '}
-          <a href="articulate.com" className="webLink">
-            Articulate
-          </a>
-          .
-        </div>
-      </Hero>
-
-      <div className="content">
-        {features.resume ? (
-          <p className="my-4">
-            Here I{' '}
-            <Link href="/projects" className="webLink">
-              showcase some work I have done
-            </Link>{' '}
-            as well as host an{' '}
-            <Link href="/resume" className="webLink cursor-not-allowed">
-              online adaptation of my resume
-            </Link>
-            .
-          </p>
-        ) : (
-          <p className="my-4">
-            Here I{' '}
-            <Link href="/projects" className="webLink">
-              showcase some work I have done
-            </Link>
-            .
-          </p>
-        )}
-        <p className="my-4">
-          I work almost entirely with JavaScript, specifically React and Ramda.
-          But I am a big fan of trying out other technologies. I also love
-          experimenting with new tech.
-        </p>
-        <p className="my-4">
-          Hobbies of mine include programming, board games, and painting
-          miniatures.
-        </p>
-        <p className="my-4">
-          Got any question? Find my contact info at the bottom of the page and
-          I&apos;ll get back to you as soon as possible!
-        </p>
-        <div>
-          <div className="text-2xl">Questions and Answers</div>
-          {qa.map(({ question, answer }, idx) => (
-            <div key={idx} className="">
-              <div className="text-lg">{question}</div>
-              <div className="text-base ml-4">{answer}</div>
-            </div>
-          ))}
-        </div>
+      <h1 className="text-5xl">Hello</h1>
+      <div className="text-3xl">
+        I&apos;m <b>Milo Gertjejansen</b>, a software engineer currently living
+        in Minnesota working at{' '}
+        <a href="https://articulate.com" className="text-link">
+          Articulate
+        </a>
+        .
       </div>
+
+      {features.resume ? (
+        <p>
+          Here I{' '}
+          <Link href="/projects" className="text-link">
+            showcase some work I have done
+          </Link>{' '}
+          as well as host an{' '}
+          <Link href="/resume" className="text-link cursor-not-allowed">
+            online adaptation of my resume
+          </Link>
+          . I&apos;ve also published some &quot;finished&quot; apps which you
+          can listed find{' '}
+          <Link href="/apps" className="text-link">
+            here
+          </Link>
+          .
+        </p>
+      ) : (
+        <p>
+          Here I{' '}
+          <Link href="/projects" className="text-link">
+            showcase some work I have done
+          </Link>
+          . I&apos;ve also published some &quot;finished&quot; apps which you
+          can listed find{' '}
+          <Link href="/apps" className="text-link">
+            here
+          </Link>
+          .
+        </p>
+      )}
+
+      <p>
+        I work primarily in Javascript and Typescript but I am also a big fan of
+        Elixir and I have written a few apps with that. Functional programming
+        is something that I am interested in and try to practice, but I still
+        have lots to learn.
+      </p>
+
+      <p>
+        Hobbies of mine include{' '}
+        <Link className="text-link" href="/projects">
+          programming
+        </Link>
+        , board games, and{' '}
+        <Link className="text-link" href="/miniatures">
+          painting miniatures
+        </Link>
+        .
+      </p>
+
+      <p>
+        Got any question? Find my contact info in the sidebar. I&apos;ll get
+        back to you as soon as possible!
+      </p>
 
       {/*<section className={`py-4`}>
       <h2 className='text-2xl'>Blog</h2>
@@ -93,7 +93,7 @@ const Home = () => {
       </ul>
     </section>
     */}
-    </>
+    </div>
   )
 }
 

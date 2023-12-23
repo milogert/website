@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import React from 'react'
-import { Hero } from 'components/hero'
 import { RepoRow } from 'components/repo-row'
 import { getPinnedRepos } from 'lib/projects'
 
@@ -15,18 +14,16 @@ const Projects = ({ error, pinnedRepos }: ProjectsProps) => (
       <title>Projects - Milo Gertjejansen</title>
     </Head>
 
-    <div className="projects-page">
-      <Hero>
-        <div className="text-5xl">Projects</div>
-        <p>
-          These are personal projects I have worked on in the past. Feel free to
-          send me an email if you have questions or suggestions!
-        </p>
-      </Hero>
+    <div className="flex flex-col gap-8">
+      <h1 className="text-5xl">Projects</h1>
+      <p>
+        These are personal projects I have worked on in the past. Feel free to
+        send me an email if you have questions or suggestions!
+      </p>
 
       {error && (
-        <div className="content">
-          <div className="p-4 bg-red-500 bg-opacity-25 border-2 rounded border-red-500 text-red-700 shadow-lg">
+        <div className="">
+          <div className="p-4 bg-error bg-opacity-25 border-2 rounded border-error-border text-primary shadow-lg">
             {error.message}
             <pre>
               <code>{error.code}</code>
@@ -35,9 +32,10 @@ const Projects = ({ error, pinnedRepos }: ProjectsProps) => (
         </div>
       )}
 
-      {pinnedRepos.map((repo, idx: number) => (
-        <RepoRow key={repo.id} {...repo} wrapRow={idx % 2 === 1} />
-      ))}
+      {pinnedRepos.map((repo, idx: number) => (<>
+        <RepoRow key={repo.id} {...repo} />
+        {idx < pinnedRepos.length - 1 && <div className="rounded h-1 w-full bg-secondary" />}
+      </>))}
     </div>
   </>
 )

@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import React from 'react'
-import { DiagonalWrapper } from 'components/diagonal-wrapper'
-import { Hero } from 'components/hero'
 
 const helpers = [
   {
@@ -49,20 +47,20 @@ const tools = [
 
 const Row = ({ name, href, description, comingSoon = false }) => (
   <div className={comingSoon ? 'opacity-50' : ''}>
-    <div className="text-lg">
+    <h3 className="text-lg">
       {comingSoon && (
-        <span className="rounded bg-gray-500 px-2 py-1 mx-1 text-sm">
+        <span className="rounded bg-secondary px-2 py-1 mx-1 text-sm">
           Coming Soon!
         </span>
       )}
       {href ? (
-        <a href={href} className="webLink">
+        <a href={href} className="text-link">
           {name}
         </a>
       ) : (
         name
       )}
-    </div>
+    </h3>
     <div className="text-base ml-4">{description}</div>
   </div>
 )
@@ -73,33 +71,27 @@ const GameTools = () => (
       <title>Game Tools - Milo Gertjejansen</title>
     </Head>
 
-    <div className="gametools-page">
-      <Hero>
-        <div className="text-5xl">Game Tools</div>
-        <p>
-          Here are links to various tools I have create surrounding board games.
-          These include helper apps (mostly as fun side projects) as well as
-          tools for Board Game Geek.
-        </p>
-      </Hero>
+    <div className="flex flex-col gap-8">
+      <h1 className="text-5xl">Game Tools</h1>
+      <p>
+        Here are links to various tools I have create surrounding board games.
+        These include helper apps (mostly as fun side projects) as well as tools
+        for Board Game Geek.
+      </p>
 
-      <DiagonalWrapper gradientFrom="from-white" gradientTo="to-white">
-        <div className="content">
-          <div className="text-3xl">Helper Apps</div>
-          {helpers.map((item, idx) => (
-            <Row key={idx} {...item} />
-          ))}
-        </div>
-      </DiagonalWrapper>
+      <div className="flex flex-col gap-4">
+        <h2 className="text-3xl">Helper Apps</h2>
+        {helpers.map((item, idx) => (
+          <Row key={idx} {...item} />
+        ))}
+      </div>
 
-      <DiagonalWrapper>
-        <div className="content">
-          <div className="text-3xl">Board Game Geek Apps</div>
-          {tools.map((item, idx) => (
-            <Row key={idx} {...item} />
-          ))}
-        </div>
-      </DiagonalWrapper>
+      <div className="flex flex-col gap-4">
+        <h2 className="text-3xl">Board Game Geek Apps</h2>
+        {tools.map((item, idx) => (
+          <Row key={idx} {...item} />
+        ))}
+      </div>
     </div>
   </>
 )

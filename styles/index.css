@@ -1,37 +1,15 @@
 @tailwind base;
 @tailwind components;
+@tailwind utilities;
+
+a {
+  @apply text-link underline;
+}
+
+nav a {
+  @apply text-brand no-underline;
+}
 
 .btn-blue {
   @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
 }
-
-.hero {
-  @apply py-20;
-}
-
-.navLink {
-}
-
-.navLink:hover {
-}
-
-.webLink {
-  @apply underline text-yellow-700;
-}
-
-.webLink:hover {
-  @apply text-yellow-600;
-}
-
-.content {
-  @apply my-0 mx-auto py-4 px-2;
-  max-width: 56rem;
-}
-
-.title {
-  @apply text-5xl text-center;
-  color: #333;
-  line-height: 1.15;
-}
-
-@tailwind utilities;
