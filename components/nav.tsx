@@ -1,4 +1,15 @@
-import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import {
+  faArrowUpRightFromSquare,
+  faCode,
+  faDice,
+  faEnvelope,
+  faFile,
+  faMobileScreenButton,
+  faPaintbrush,
+  faRobot,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classnames from 'classnames'
 import Link from 'next/link'
@@ -15,35 +26,42 @@ type TreeNode = {
   href: string
   nodes?: TreeNode[]
   external?: boolean
+  icon?: IconProp
 }
 
 const tree: TreeNode = {
   name: 'Me',
   href: '/',
+  icon: faRobot,
   nodes: [
     {
       name: 'Apps',
       href: '/apps',
+      icon: faMobileScreenButton,
     },
     {
       name: 'Projects',
       href: '/projects',
+      icon: faCode,
     },
     {
       name: 'Game Tools',
       href: '/gametools',
+      icon: faDice,
     },
     ...(features.resume
       ? [
-          {
-            name: 'Resume',
-            href: '/resume',
-          },
-        ]
+        {
+          name: 'Resume',
+          href: '/resume',
+          icon: faFile,
+        },
+      ]
       : []),
     {
       name: 'Miniatures',
       href: '/miniatures',
+      icon: faPaintbrush,
       nodes: data.map((project: ProjectContent) => ({
         name: project.title,
         href: `/miniatures/${project.id}`,
@@ -53,30 +71,41 @@ const tree: TreeNode = {
       name: 'Github',
       href: 'https://github.com/milogert',
       external: true,
+      icon: faGithub,
     },
     {
       name: 'LinkedIn',
       href: 'https://linkedin.com/in/milogert',
       external: true,
+      icon: faLinkedin,
     },
     {
       name: 'Email',
       href: 'mailto:milo+site-contact@milogert.com;',
       external: true,
+      icon: faEnvelope,
     },
   ],
 }
 
-const themes = ['srcery', 'srceryLight', 'gruvbox', 'gruvboxLight', 'dracula']
+enum Theme {
+  srcery = 'srcery',
+  srceryLight = 'srceryLight',
+  gruvbox = 'gruvbox',
+  gruvboxLight = 'gruvboxLight',
+  dracula = 'dracula',
+}
 
-const Tree = (props: TreeNode & { depth: number; closeMenu: () => void }) => {
+type TreeProps = TreeNode & { depth: number; closeMenu: () => void }
+
+const Tree = (props: TreeProps) => {
   const router = useRouter()
   const { asPath } = router
-  const { name, href, nodes, depth, closeMenu, external } = props
+  const { name, href, nodes, depth, closeMenu, external, icon } = props
   const isActiveButton = asPath === href
 
   const linkClassName = classnames(
-    'transition-colors w-full rounded hover:bg-hover p-1',
+    'transition-colors w-full rounded hover:bg-hover px-1 flex gap-2 items-center',
     {
       'bg-active': isActiveButton,
     },
@@ -87,6 +116,7 @@ const Tree = (props: TreeNode & { depth: number; closeMenu: () => void }) => {
       style={{
         marginLeft: `${depth / 2}rem`,
       }}
+      className="flex flex-col gap-1"
     >
       <Link
         href={href}
@@ -94,9 +124,10 @@ const Tree = (props: TreeNode & { depth: number; closeMenu: () => void }) => {
         className={linkClassName}
         target={external ? '_blank' : '_self'}
       >
+        {icon && <FontAwesomeIcon className="w-4" icon={icon} />}
         {name}
         {external && (
-          <FontAwesomeIcon className="ml-2" icon={faExternalLinkAlt} />
+          <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
         )}
       </Link>
       {nodes &&
@@ -115,14 +146,15 @@ const Tree = (props: TreeNode & { depth: number; closeMenu: () => void }) => {
 export const Nav = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const systemMedium = useMedia('(min-width: 768px)', false)
-  const [selectedTheme, setSelectedTheme] = useState('srcery')
+  const [selectedTheme, setSelectedTheme] = useState(Theme.srcery)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    const lsThemeToggle = window.localStorage.getItem('theme')
-    doSetTheme(lsThemeToggle !== null ? lsThemeToggle : 'srcery')
+    const lsThemeToggle = window.localStorage.getItem('theme') as Theme
+    doSetTheme(lsThemeToggle !== null ? lsThemeToggle : Theme.srcery)
   })
 
-  const doSetTheme = useCallback((theme: string) => {
+  const doSetTheme = useCallback((theme: Theme) => {
     const html = document.getElementsByTagName('html')[0]
     html.setAttribute('data-theme', theme)
     if (window) {
@@ -133,18 +165,30 @@ export const Nav = () => {
 
   const onThemeChange = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
-      const value = e.target.value
+      const value = e.target.value as Theme
       doSetTheme(value)
     },
     [doSetTheme],
   )
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoaded(true)
+    }, 500)
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [])
+
   const navClassName = classnames(
-    'bg-nav text-brand m-2 rounded',
+    'bg-nav text-brand m-2 rounded duration-400',
     'transition-all',
     {
-      'p-1 hover:bg-hover': !systemMedium && !menuOpen,
+      'p-1': !systemMedium && !menuOpen,
       'p-3 w-64': systemMedium || menuOpen,
+      'opacity-0': !loaded,
+      'opacity-100': loaded,
     },
   )
 
@@ -173,11 +217,11 @@ export const Nav = () => {
               Theme
             </label>
             <select
-              className="bg-brand text-primary"
+              className="bg-brand text-primary rounded"
               id="theme-select"
               onChange={onThemeChange}
             >
-              {themes.map((theme) => (
+              {Object.keys(Theme).map((theme: Theme) => (
                 <option
                   key={theme}
                   value={theme}
