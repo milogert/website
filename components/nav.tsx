@@ -182,8 +182,8 @@ export const Nav = () => {
   }, [])
 
   const navClassName = classnames(
-    'bg-nav text-brand m-2 rounded duration-400',
-    'transition-all',
+    'bg-nav text-brand m-2 rounded',
+    '[transition:all_150ms,opacity_2s]',
     {
       'p-1': !systemMedium && !menuOpen,
       'p-3 w-64': systemMedium || menuOpen,
