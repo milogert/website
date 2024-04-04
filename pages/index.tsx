@@ -16,8 +16,13 @@ const Home = () => {
       <div className="text-3xl">
         I&apos;m <b>Milo Gertjejansen</b>, a software engineer currently living
         in Minnesota working at{' '}
-        <a href="https://articulate.com" className="text-link">
-          Articulate
+        <a
+          href="https://swoogo.events"
+          target="_blank"
+          rel="noreferrer"
+          className="from-[rgb(114_107_234)] to-[#f46a34] bg-gradient-to-br bg-clip-text text-transparent underline"
+        >
+          Swoogo
         </a>
         .
       </div>
