@@ -1,9 +1,9 @@
 /* eslint-disable unicorn/filename-case */
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useRef, useState } from 'react'
 import { useMount } from 'react-use'
 import * as rawData from 'data/project.json'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 const data = Array.from(rawData)
 
