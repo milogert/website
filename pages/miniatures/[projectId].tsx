@@ -1,23 +1,38 @@
 /* eslint-disable unicorn/filename-case */
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { useMount } from 'react-use'
 import * as rawData from 'data/project.json'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 const data = Array.from(rawData)
 
 type ProjectImageProps = {
   image: Image
+  idx: number
 }
 
 const ProjectImage = (props: ProjectImageProps) => {
-  const { image } = props
+  const { image, idx } = props
   const [zoomed, setZoomed] = useState(false)
+  const imageRef = useRef<HTMLDivElement>()
+
+  useMount(() => {
+    if (imageRef.current) {
+      setTimeout(() => {
+        imageRef.current.classList.add('opacity-100')
+        imageRef.current.classList.remove('opacity-0')
+      }, 200 * idx)
+    }
+  })
 
   return (
     <>
       <div
-        className="aspect-square w-full bg-cover cursor-zoom-in"
+        className="aspect-square w-full bg-cover cursor-zoom-in transition-opacity duration-500 opacity-0 rounded"
         style={{ backgroundImage: `url(${image.fields.file.url})` }}
         onClick={() => setZoomed(true)}
+        ref={imageRef}
       />
       {zoomed && <ZoomedImage image={image} unzoom={() => setZoomed(false)} />}
     </>
@@ -33,12 +48,15 @@ const ZoomedImage = (props: ZoomedImageProps) => {
   const { image, unzoom } = props
 
   return (
-    <div className="fixed z-50 h-screen w-screen bg-black inset-0 flex justify-center items-center p-20">
-      <div
-        className="h-full w-full relative bg-contain bg-center bg-no-repeat cursor-zoom-out"
-        style={{ backgroundImage: `url(${image.fields.file.url})` }}
-        onClick={unzoom}
-      />
+    <div className="fixed z-50 h-screen w-screen inset-0 p-2" onClick={unzoom}>
+      <div className="absolute inset-0 bg-brand/70 backdrop-blur-sm flex justify-center items-center cursor-zoom-out ">
+        <div className="rounded object-fill overflow-hidden m-4 my-20 md:my-4 md:mx-20 max-h-[calc(100vh-1rem)] max-w-fit">
+          <img src={image.fields.file.url} className="object-bottom" />
+        </div>
+      </div>
+      <button className="absolute text-primary text-4xl flex p-4 right-0" type="button">
+        <FontAwesomeIcon icon={faXmark} />
+      </button>
     </div>
   )
 }
@@ -54,16 +72,16 @@ const MiniatureProject = ({ project }: MiniatureProjectType) => {
 
       <div className="flex flex-col items-center md:flex-row gap-8">
         <div className="shrink-0 w-48">
-          <ProjectImage image={project.splashImage} />
+          <ProjectImage image={project.splashImage} idx={0} />
         </div>
 
         {project.description && <p className="">{project.description}</p>}
       </div>
 
       <div className="">
-        <div className="grid grid-cols-4 items-center">
-          {project.images?.map((image: Image) => (
-            <ProjectImage key={image.sys.id} image={image} />
+        <div className="grid grid-cols-4 items-center gap-2">
+          {project.images?.map((image: Image, idx: number) => (
+            <ProjectImage key={image.sys.id} image={image} idx={idx} />
           ))}
         </div>
       </div>

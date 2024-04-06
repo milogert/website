@@ -1,16 +1,28 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useRef } from 'react'
+import { useMount } from 'react-use'
 import * as rawData from 'data/project.json'
 
 const data = Array.from(rawData)
 
-const ProjectCard = (props: ProjectContent) => {
-  const { title, splashImage } = props
+const ProjectCard = (props: ProjectContent & { idx: number }) => {
+  const { title, splashImage, idx } = props
+  const linkRef = useRef<HTMLAnchorElement>()
+
+  useMount(() => {
+    if (linkRef.current) {
+      setTimeout(() => {
+        linkRef.current.classList.add('opacity-100')
+        linkRef.current.classList.remove('opacity-0')
+      }, 200 * idx)
+    }
+  })
 
   return (
     <Link
       href={`/miniatures/${props.id}`}
-      className="flex items-center gap-2 rounded p-2 transition-colors hover:bg-hover"
+      className="flex items-center gap-2 rounded p-2 transition-all duration-500 hover:bg-hover opacity-0"
+      ref={linkRef}
     >
       <img
         className="h-24 w-24 object-cover rounded-full"
@@ -34,8 +46,8 @@ const MiniatureGalleryHome = () => (
       photos are ordered from &quot;finished product&quot; to start of painting.
     </p>
 
-    {data.map((project: ProjectContent) => (
-      <ProjectCard key={project.title} {...project} />
+    {data.map((project: ProjectContent, idx: number) => (
+      <ProjectCard key={project.title} {...project} idx={idx} />
     ))}
   </div>
 )
