@@ -1,17 +1,10 @@
-import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
 import { features } from 'lib/features'
-import { getSortedPostsData } from 'lib/posts'
 
-const Home = () => {
+export const Home = ({ postData }) => {
   return (
     <div className="flex flex-col gap-8">
-      <Head>
-        <title>Home Page</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <h1 className="text-5xl">Hello</h1>
       <div className="text-3xl">
         I&apos;m <b>Milo Gertjejansen</b>, a software engineer currently living
@@ -20,7 +13,7 @@ const Home = () => {
           href="https://swoogo.events"
           target="_blank"
           rel="noreferrer"
-          className="from-[rgb(114_107_234)] to-[#f46a34] bg-gradient-to-br bg-clip-text text-transparent underline"
+          className="from-[rgb(114_107_234)] to-[#f46a34] bg-gradient-to-br bg-clip-text text-transparent underline font-bold"
         >
           Swoogo
         </a>
@@ -86,7 +79,7 @@ const Home = () => {
       {/*<section className={`py-4`}>
       <h2 className='text-2xl'>Blog</h2>
       <ul className='list-none'>
-        {allPostsData.map(({ id, date, title }) => (
+        {postData.map(({ id, date, title }) => (
           <li className="px-4 mb-5 hover:bg-gray-300" key={id}>
             {title}
             <br />
@@ -101,14 +94,3 @@ const Home = () => {
     </div>
   )
 }
-
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData()
-  return {
-    props: {
-      allPostsData,
-    },
-  }
-}
-
-export default Home

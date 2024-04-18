@@ -71,7 +71,12 @@ const fetchScreenshots = async (repo) => {
   return newRepo
 }
 
-export const getPinnedRepos = async () => {
+type PinnedResposResponse = {
+  error?: RepoError
+  pinnedRepos?: Repo[]
+}
+
+export const getPinnedRepos = async (): Promise<PinnedResposResponse> => {
   try {
     const res = await axios({
       url: 'https://api.github.com/graphql',

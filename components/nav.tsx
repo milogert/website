@@ -1,3 +1,5 @@
+'use client'
+
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import {
@@ -13,13 +15,14 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classnames from 'classnames'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React, { useCallback, useEffect, useState, ChangeEvent } from 'react'
+import { usePathname } from 'next/navigation'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useMedia } from 'react-use'
 import * as rawData from 'data/project.json'
 const data = Array.from(rawData)
 
 import { features } from 'lib/features'
+import { Select, SelectContent, SelectItem, SelectTrigger } from './ui/select'
 
 type TreeNode = {
   name: string
@@ -99,10 +102,9 @@ enum Theme {
 type TreeProps = TreeNode & { depth: number; closeMenu: () => void }
 
 const Tree = (props: TreeProps) => {
-  const router = useRouter()
-  const { asPath } = router
+  const pathname = usePathname()
   const { name, href, nodes, depth, closeMenu, external, icon } = props
-  const isActiveButton = asPath === href
+  const isActiveButton = pathname === href
 
   const linkClassName = classnames(
     'transition-colors w-full rounded hover:bg-hover px-1 flex gap-2 items-center',
@@ -126,9 +128,7 @@ const Tree = (props: TreeProps) => {
       >
         {icon && <FontAwesomeIcon className="w-4" icon={icon} />}
         {name}
-        {external && (
-          <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-        )}
+        {external && <FontAwesomeIcon icon={faArrowUpRightFromSquare} />}
       </Link>
       {nodes &&
         nodes.map((node) => (
@@ -164,9 +164,8 @@ export const Nav = () => {
   }, [])
 
   const onThemeChange = useCallback(
-    (e: ChangeEvent<HTMLSelectElement>) => {
-      const value = e.target.value as Theme
-      doSetTheme(value)
+    (theme: Theme) => {
+      doSetTheme(theme)
     },
     [doSetTheme],
   )
@@ -216,21 +215,16 @@ export const Nav = () => {
             <label htmlFor="theme-select" className="font-bold">
               Theme
             </label>
-            <select
-              className="bg-brand text-primary rounded"
-              id="theme-select"
-              onChange={onThemeChange}
-            >
-              {Object.keys(Theme).map((theme: Theme) => (
-                <option
-                  key={theme}
-                  value={theme}
-                  selected={theme === selectedTheme}
-                >
-                  {theme}
-                </option>
-              ))}
-            </select>
+            <Select onValueChange={onThemeChange}>
+              <SelectTrigger>{selectedTheme}</SelectTrigger>
+              <SelectContent>
+                {Object.keys(Theme).map((theme: Theme) => (
+                  <SelectItem key={theme} value={theme}>
+                    {theme}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
       )}

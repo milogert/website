@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import { Metadata } from 'next'
 import React from 'react'
 
 const helpers = [
@@ -65,39 +65,33 @@ const Row = ({ name, href, description, comingSoon = false }) => (
   </div>
 )
 
-const GameTools = () => (
-  <>
-    <Head>
-      <title>Game Tools - Milo Gertjejansen</title>
-    </Head>
-
-    <div className="flex flex-col gap-8">
-      <h1 className="text-5xl">Game Tools</h1>
-      <p>
-        Here are links to various tools I have create surrounding board games.
-        These include helper apps (mostly as fun side projects) as well as tools
-        for Board Game Geek.
-      </p>
-
-      <div className="flex flex-col gap-4">
-        <h2 className="text-3xl">Helper Apps</h2>
-        {helpers.map((item, idx) => (
-          <Row key={idx} {...item} />
-        ))}
-      </div>
-
-      <div className="flex flex-col gap-4">
-        <h2 className="text-3xl">Board Game Geek Apps</h2>
-        {tools.map((item, idx) => (
-          <Row key={idx} {...item} />
-        ))}
-      </div>
-    </div>
-  </>
-)
-
-export async function getStaticProps() {
-  return { props: {} }
+export const metadata: Metadata = {
+  title: 'Game Tools - Milo Gertjejansen',
 }
+
+const GameTools = () => (
+  <div className="flex flex-col gap-8">
+    <h1 className="text-5xl">Game Tools</h1>
+    <p>
+      Here are links to various tools I have create surrounding board games.
+      These include helper apps (mostly as fun side projects) as well as tools
+      for Board Game Geek.
+    </p>
+
+    <div className="flex flex-col gap-4">
+      <h2 className="text-3xl">Helper Apps</h2>
+      {helpers.map((item, idx) => (
+        <Row key={idx} {...item} />
+      ))}
+    </div>
+
+    <div className="flex flex-col gap-4">
+      <h2 className="text-3xl">Board Game Geek Apps</h2>
+      {tools.map((item, idx) => (
+        <Row key={idx} {...item} />
+      ))}
+    </div>
+  </div>
+)
 
 export default GameTools
