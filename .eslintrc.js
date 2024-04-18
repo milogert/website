@@ -33,7 +33,7 @@ module.exports = {
     },
     {
       // Pages (html and api) have to export default for next.
-      files: ['./pages/**/*.{ts,tsx}', 'jest.config.ts'],
+      files: ['./pages/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', 'jest.config.ts'],
       rules: {
         'import/no-default-export': 0,
       },

@@ -79,8 +79,4 @@ const Apps = () => (
   </>
 )
 
-export async function getStaticProps() {
-  return { props: {} }
-}
-
 export default Apps
