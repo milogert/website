@@ -22,22 +22,23 @@ const ProjectCard = (props: ProjectContent & { idx: number }) => {
   )
 }
 
-const MiniatureGalleryHome = () => (
-  <div className="flex flex-col gap-8">
-    <h1 className="text-5xl">Miniature Gallery</h1>
-    <p>
-      These are some minitures I painted. I&apos;m not the best but I&apos;m
-      certainly proud of them!
-    </p>
-    <p>
-      The project are orders from most recent to oldest. Within the projects the
-      photos are ordered from &quot;finished product&quot; to start of painting.
-    </p>
+export default async function() {
+  return (
+    <div className="flex flex-col gap-8">
+      <h1 className="text-5xl">Miniature Gallery</h1>
+      <p>
+        These are some minitures I painted. I&apos;m not the best but I&apos;m
+        certainly proud of them!
+      </p>
+      <p>
+        The project are orders from most recent to oldest. Within the projects
+        the photos are ordered from &quot;finished product&quot; to start of
+        painting.
+      </p>
 
-    {data.map((project: ProjectContent, idx: number) => (
-      <ProjectCard key={project.title} {...project} idx={idx} />
-    ))}
-  </div>
-)
-
-export default MiniatureGalleryHome
+      {data.map((project: ProjectContent, idx: number) => (
+        <ProjectCard key={project.title} {...project} idx={idx} />
+      ))}
+    </div>
+  )
+}

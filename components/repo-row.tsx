@@ -44,19 +44,6 @@ export const RepoRow = ({
 
     <div className="">
       <p>{description}</p>
-
-      <div className="my-4">
-        <Carousel renderThumbs={() => null}>
-          {screenshots.map((url) => (
-            <div className="h-full" key={url}>
-              <img
-                className="object-contain object-center w-[30rem] h-96"
-                src={url}
-              />
-            </div>
-          ))}
-        </Carousel>
-      </div>
     </div>
 
     <div className="flex justify-between flex-col md:flex-row gap-2">
