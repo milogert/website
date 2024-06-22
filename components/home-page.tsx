@@ -8,7 +8,7 @@ export const Home = ({ postData }) => {
       <h1 className="text-5xl">Hello</h1>
       <div className="text-3xl">
         I&apos;m <b>Milo Gertjejansen</b>, a software engineer currently living
-        in Minnesota working at{' '}
+        in Maine working at{' '}
         <a
           href="https://swoogo.events"
           target="_blank"
